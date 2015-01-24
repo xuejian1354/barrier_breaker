@@ -1,0 +1,7 @@
+
+config samba
+	option workgroup 'WORKGROUP'
+	option homes '1'
+	option name 'ly7620'
+	option description 'LY7620'
+

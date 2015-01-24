@@ -726,23 +726,27 @@ Image/Build/Profile/NA930=$(call BuildFirmware/CustomFlash/$(1),$(1),na930,NA930
 Image/Build/Profile/MZK-750DHP=$(call BuildFirmware/Default8M/$(1),$(1),mzk-750dhp,MZK-750DHP)
 Image/Build/Profile/Y1=$(call BuildFirmware/Default16M/$(1),$(1),Lenovo-y1,Y1)
 Image/Build/Profile/Y1S=$(call BuildFirmware/Default16M/$(1),$(1),Lenovo-y1s,Y1S)
+ly7620_fw_size_64M=66781184
+ly7620_fw_size_16M=16449536
+Image/Build/Profile/LY7620=$(call BuildFirmware/CustomFlash/$(1),$(1),ly7620,LY7620,$(ly7620_fw_size_16M))
 
 ifeq ($(SUBTARGET),mt7620a)
 define Image/Build/Profile/Default
-	$(call Image/Build/Profile/MT7620a,$(1))
-	$(call Image/Build/Profile/MT7620a_MT7610e,$(1))
-	$(call Image/Build/Profile/MT7620a_MT7530,$(1))
-	$(call Image/Build/Profile/MT7620a_V22SG,$(1))
-	$(call Image/Build/Profile/RP-N53,$(1))
-	$(call Image/Build/Profile/DIR-810L,$(1))
-	$(call Image/Build/Profile/WHR300HP2,$(1))
-	$(call Image/Build/Profile/WHR600D,$(1))
-	$(call Image/Build/Profile/WHR1166D,$(1))
-	$(call Image/Build/Profile/MZK-750DHP,$(1))
-	$(call Image/Build/Profile/NA930,$(1))
-	$(call Image/Build/Profile/Y1,$(1))
-	$(call Image/Build/Profile/Y1S,$(1))
+	$(call Image/Build/Profile/LY7620,$(1))
 endef
+#	$(call Image/Build/Profile/MT7620a,$(1))
+#	$(call Image/Build/Profile/MT7620a_MT7610e,$(1))
+#	$(call Image/Build/Profile/MT7620a_MT7530,$(1))
+#	$(call Image/Build/Profile/MT7620a_V22SG,$(1))
+#	$(call Image/Build/Profile/RP-N53,$(1))
+#	$(call Image/Build/Profile/DIR-810L,$(1))
+#	$(call Image/Build/Profile/WHR300HP2,$(1))
+#	$(call Image/Build/Profile/WHR600D,$(1))
+#	$(call Image/Build/Profile/WHR1166D,$(1))
+#	$(call Image/Build/Profile/MZK-750DHP,$(1))
+#	$(call Image/Build/Profile/NA930,$(1))
+#	$(call Image/Build/Profile/Y1,$(1))
+#	$(call Image/Build/Profile/Y1S,$(1))
 endif
 
 
@@ -786,11 +790,8 @@ endif
 # Generic Targets
 #
 define Image/BuildKernel
-	cp $(KDIR)/vmlinux.elf $(BIN_DIR)/$(VMLINUX).elf
-	cp $(KDIR)/vmlinux $(BIN_DIR)/$(VMLINUX).bin
 	$(call CompressLzma,$(KDIR)/vmlinux,$(KDIR)/vmlinux.bin.lzma)
 	$(call MkImage,lzma,$(KDIR)/vmlinux.bin.lzma,$(KDIR)/uImage.lzma)
-	cp $(KDIR)/uImage.lzma $(BIN_DIR)/$(UIMAGE).bin
 ifneq ($(CONFIG_TARGET_ROOTFS_INITRAMFS),)
 	cp $(KDIR)/vmlinux-initramfs.elf $(BIN_DIR)/$(VMLINUX)-initramfs.elf
 	cp $(KDIR)/vmlinux-initramfs $(BIN_DIR)/$(VMLINUX)-initramfs.bin
@@ -803,7 +804,6 @@ endef
 
 define Image/Build
 	$(call Image/Build/$(1))
-	dd if=$(KDIR)/root.$(1) of=$(BIN_DIR)/$(IMG_PREFIX)-root.$(1) bs=128k conv=sync
 	$(call Image/Build/Profile/$(PROFILE),$(1))
 endef
 
