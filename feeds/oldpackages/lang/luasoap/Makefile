@@ -8,12 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luasoap
-PKG_VERSION:=2.0.2
-PKG_RELEASE:=2
+PKG_VERSION:=2013-11-07
+PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/downloads/tomasguisasola/luasoap/
-PKG_MD5SUM:=3aafa06f3a65e65f4ee08e12b89ec583
+
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/tomasguisasola/luasoap.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=af1e100281cee4b972df10121e37e51d53367a98
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_MAINTAINER:=Tomas Guisasola <tomasguisasola@gmail.com>
+
 
 include $(INCLUDE_DIR)/package.mk
 
