@@ -1,5 +1,4 @@
-
-EXTRA_CFLAGS = -Idrivers/net/wireless/rt2860v2/include -Idrivers/net/wireless/rt2860v2/ate/include
+EXTRA_CFLAGS = -I$(SOURCE_DIR)/rt2860v2/include -I$(SOURCE_DIR)/rt2860v2/ate/include
 
 ifeq ($(CONFIG_SOC_MT7620),y)
 EXTRA_CFLAGS += -DCONFIG_RALINK_MT7620
@@ -75,6 +74,7 @@ rt2860v2_ap-objs += ../rt2860v2/os/linux/rt_pci_rbus.o
 rt2860v2_ap-objs += ../rt2860v2/os/linux/rt_rbus_pci_drv.o
 rt2860v2_ap-objs += ../rt2860v2/os/linux/rt_rbus_pci_util.o
 rt2860v2_ap-objs += ../rt2860v2/os/linux/rbus_main_dev.o
+rt2860v2_ap-objs += ../rt2860v2/os/linux/rt_flash.o
 
 rt2860v2_ap-objs += ../rt2860v2/ate/common/rt_ate.o
 rt2860v2_ap-objs += ../rt2860v2/ate/common/rt_qa.o

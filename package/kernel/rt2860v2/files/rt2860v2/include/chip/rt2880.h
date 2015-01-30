@@ -37,7 +37,7 @@
 
 #ifdef LINUX
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,21)
-#include <asm/rt2880/rt_mmap.h>
+#include "rt_mmap.h" //fix
 #define RTMP_MAC_CSR_ADDR RALINK_11N_MAC_BASE
 #else
 

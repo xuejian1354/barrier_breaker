@@ -1,14 +1,3 @@
-/*
- *  This Code was picked from project: https://code.google.com/p/rt-n56u/ 
- *  to fix the following three symbols missing in ralink's wifi driver rt2860v2 
- *  
- *	EXPORT_SYMBOL(procRegDir);
- *	EXPORT_SYMBOL(ra_mtd_write_nm);
- *	EXPORT_SYMBOL(ra_mtd_read_nm);
- ***************************************************************************
- *	www.diveinedu.cn
- *  Cheetah 大茶园丁 147957232@qq.com
- */
 #include <linux/module.h>
 #include <linux/types.h>
 #include <linux/init.h>
@@ -25,32 +14,8 @@
 #include <linux/mtd/map.h>
 #include <linux/mtd/concat.h>
 #include <linux/mtd/partitions.h>
-#include "../mtdcore.h"
-#include <asm/io.h>
-#include <asm/addrspace.h>
-/*
-#include <asm/rt2880/rt_mmap.h>
-*/
-#include "ralink-flash.h"
 
-#define WINDOW_ADDR		CPHYSADDR(CONFIG_RT2880_MTD_PHYSMAP_START)
-#define WINDOW_SIZE		CONFIG_RT2880_MTD_PHYSMAP_LEN
-#define NUM_FLASH_BANKS		1
-
-#define BUSWIDTH		CONFIG_RT2880_MTD_PHYSMAP_BUSWIDTH
-
-
-
-static int __init rt2880_mtd_init(void)
-{
-
-	return 0;
-}
-
-static void __exit rt2880_mtd_exit(void)
-{
-}
-
+struct proc_dir_entry *procRegDir;
 /*
  * Flash API: ra_mtd_read, ra_mtd_write
  * Arguments:
@@ -158,12 +123,9 @@ int ra_mtd_read_nm(char *name, loff_t from, size_t len, u_char *buf)
 	return ret;
 }
 
-module_init(rt2880_mtd_init);
-module_exit(rt2880_mtd_exit);
-struct proc_dir_entry *procRegDir;
-EXPORT_SYMBOL(procRegDir);
 EXPORT_SYMBOL(ra_mtd_write_nm);
 EXPORT_SYMBOL(ra_mtd_read_nm);
+EXPORT_SYMBOL(procRegDir);
 
 MODULE_AUTHOR("Steven Liu <steven_liu@ralinktech.com.tw>");
 MODULE_DESCRIPTION("Ralink APSoC Flash Map");

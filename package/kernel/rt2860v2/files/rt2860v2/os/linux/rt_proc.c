@@ -61,7 +61,7 @@ int wl_proc_exit(void);
 #endif /* PROCREG_DIR */
 
 #ifdef CONFIG_PROC_FS
-extern struct proc_dir_entry *procRegDir;
+struct proc_dir_entry *procRegDir2860v2;
 
 #ifdef VIDEO_TURBINE_SUPPORT
 extern BOOLEAN UpdateFromGlobal;
@@ -381,7 +381,7 @@ int wl_video_proc_init(void)
 	GLOBAL_AP_VIDEO_CONFIG.TxLifeTime = 0;
 	GLOBAL_AP_VIDEO_CONFIG.TxRetryLimit = 0;
 
-		proc_ralink_wl = proc_mkdir("wl", procRegDir);
+		proc_ralink_wl = proc_mkdir("wl", procRegDir2860v2);
 
 	if (proc_ralink_wl)
 		proc_ralink_wl_video = proc_mkdir("VideoTurbine", proc_ralink_wl);
@@ -498,10 +498,10 @@ int wl_video_proc_exit(void)
 
 int wl_proc_init(void)
 {
-	if (procRegDir == NULL)
-		procRegDir = proc_mkdir(PROCREG_DIR, NULL);
+	if (procRegDir2860v2 == NULL)
+		procRegDir2860v2 = proc_mkdir(PROCREG_DIR, NULL);
 
-	if (procRegDir) {
+	if (procRegDir2860v2) {
 #ifdef VIDEO_TURBINE_SUPPORT
 		wl_video_proc_init();
 #endif /* VIDEO_TURBINE_SUPPORT */
@@ -518,10 +518,10 @@ int wl_proc_exit(void)
 		remove_proc_entry("Video", proc_ralink_wl);
 	}
 	if (proc_ralink_wl)
-		remove_proc_entry("wl", procRegDir);
+		remove_proc_entry("wl", procRegDir2860v2);
 #endif /* VIDEO_TURBINE_SUPPORT */
-	if (procRegDir)
-		remove_proc_entry(PROCREG_DIR, NULL);
+
+	
 	return 0;
 }
 #else

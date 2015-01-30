@@ -1802,6 +1802,26 @@ CONFIG_PACKAGE_kmod-rt2800-mmio=y
 CONFIG_PACKAGE_kmod-rt2800-pci=y
 CONFIG_PACKAGE_kmod-rt2800-soc=y
 # CONFIG_PACKAGE_kmod-rt2800-usb is not set
+CONFIG_PACKAGE_kmod-rt2860v2=y
+CONFIG_RT2860V2_AP=y
+CONFIG_RT2860V2_AP_V24_DATA_STRUCTURE=y
+# CONFIG_RT2860V2_AP_LED is not set
+# CONFIG_RT2860V2_AP_WSC is not set
+# CONFIG_RT2860V2_AP_LLTD is not set
+# CONFIG_RT2860V2_AP_WDS is not set
+# CONFIG_RT2860V2_AP_MBSS is not set
+# CONFIG_RT2860V2_AP_APCLI is not set
+# CONFIG_RT2860V2_AP_IGMP_SNOOP is not set
+# CONFIG_RT2860V2_AP_NETIF_BLOCK is not set
+# CONFIG_RT2860V2_AP_DFS is not set
+# CONFIG_RT2860V2_AP_CARRIER is not set
+# CONFIG_RT2860V2_AP_DLS is not set
+# CONFIG_RT2860V2_AP_IDS is not set
+CONFIG_RT2860V2_AP_COC=y
+# CONFIG_RT2860V2_AP_MEMORY_OPTIMIZATION is not set
+# CONFIG_RT2860V2_AP_VIDEO_TURBINE is not set
+# CONFIG_RT2860V2_AP_80211N_DRAFT3 is not set
+# CONFIG_RT2860V2_SINGLE_SKU is not set
 CONFIG_PACKAGE_kmod-rt2x00-lib=y
 # CONFIG_PACKAGE_RT2X00_LIB_DEBUGFS is not set
 # CONFIG_PACKAGE_RT2X00_DEBUG is not set
@@ -2414,6 +2434,7 @@ CONFIG_PACKAGE_luci-app-upnp=y
 # CONFIG_PACKAGE_luci-app-watchcat is not set
 # CONFIG_PACKAGE_luci-app-wol is not set
 # CONFIG_PACKAGE_luci-app-wshaper is not set
+# CONFIG_PACKAGE_luci-webpanel-linino is not set
 
 #
 # 4. Themes
@@ -3941,7 +3962,7 @@ CONFIG_PACKAGE_libjson-script=y
 # CONFIG_PACKAGE_lrzsz is not set
 # CONFIG_PACKAGE_lsof is not set
 # CONFIG_PACKAGE_lxc is not set
-# CONFIG_PACKAGE_maccalc is not set
+CONFIG_PACKAGE_maccalc=y
 # CONFIG_PACKAGE_macchanger is not set
 # CONFIG_PACKAGE_mbus-serial is not set
 # CONFIG_PACKAGE_mbus-tcp is not set
