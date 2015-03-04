@@ -1,0 +1,16 @@
+menu "Configuration"
+	depends on PACKAGE_shome-app
+
+config PACKAGE_shome-gitsite
+	string "shome git site" if DEVEL
+	default "git@loongsky1:openwrt/shome.git"
+	help
+	  git repository site
+
+config PACKAGE_shome-version
+	string "shome git version" if DEVEL
+	default "0f90c155afcda22d2ba0b707e62b3e135b213fb2"
+	help
+	  git version
+
+endmenu

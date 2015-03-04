@@ -13,9 +13,9 @@ PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=git@192.168.1.111:openwrt/connect_listen.git
+PKG_SOURCE_URL:=$(CONFIG_PACKAGE_connect-listen-gitsite)
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=e9f7b8664a41e591baabec7f2de2851a1514baee
+PKG_SOURCE_VERSION:=$(CONFIG_PACKAGE_connect-listen-version)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Sam Chen <xuejian1354@gmail.com>
 
@@ -33,6 +33,10 @@ define Package/connector/Default
   URL:=$(TOPDIR)/src
   DEPENDS:=+libpthread +librt
   MAINTAINER:=Sam Chen <xuejian1354@gmail.com>
+endef
+
+define Package/connect-listen/config
+	source "$(SOURCE)/Config.in"
 endef
 
 define Package/connect-listen

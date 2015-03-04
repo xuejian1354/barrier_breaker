@@ -1,0 +1,16 @@
+menu "Configuration"
+	depends on PACKAGE_connect-listen
+
+config PACKAGE_connect-listen-gitsite
+	string "connect-listen git site" if DEVEL
+	default "git@loongsky1:openwrt/connect_listen.git"
+	help
+	  git repository site
+
+config PACKAGE_connect-listen-version
+	string "connect-listen git version" if DEVEL
+	default "e9f7b8664a41e591baabec7f2de2851a1514baee"
+	help
+	  git version
+
+endmenu

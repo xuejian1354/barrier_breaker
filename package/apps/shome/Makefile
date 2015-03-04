@@ -13,9 +13,9 @@ PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=git@192.168.1.111:openwrt/shome.git
+PKG_SOURCE_URL:=$(CONFIG_PACKAGE_shome-gitsite)
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=0f90c155afcda22d2ba0b707e62b3e135b213fb2
+PKG_SOURCE_VERSION:=$(CONFIG_PACKAGE_shome-version)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Sam Chen <xuejian1354@gmail.com>
 
@@ -33,6 +33,10 @@ define Package/shome/Default
   URL:=$(TOPDIR)/src
   DEPENDS:=+libstdcpp +libpthread +librt
   MAINTAINER:=Sam Chen <xuejian1354@gmail.com>
+endef
+
+define Package/shome-app/config
+  source "$(SOURCE)/Config.in"
 endef
 
 define Package/shome-app
