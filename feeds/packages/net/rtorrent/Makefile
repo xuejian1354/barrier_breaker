@@ -77,11 +77,6 @@ ifeq ($(BUILD_VARIANT),rpc)
 endif
 
 
-define Build/Configure
-	( cd $(PKG_BUILD_DIR); ./autogen.sh );
-	$(call Build/Configure/Default)
-endef
-
 define Package/rtorrent/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/rtorrent $(1)/usr/bin/
@@ -90,4 +85,4 @@ endef
 Package/rtorrent-rpc/install = $(Package/rtorrent/install)
 
 $(eval $(call BuildPackage,rtorrent))
-#$(eval $(call BuildPackage,rtorrent-rpc))
+$(eval $(call BuildPackage,rtorrent-rpc))
