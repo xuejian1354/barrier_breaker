@@ -121,10 +121,10 @@ define Build/Compile
 endef
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include/pjsip-api
-	$(CP) $(PKG_INSTALL_DIR)/usr/pjsip-$(BUILD_VARIANT)/include/* $(1)/usr/include/pjsip-api
-	$(INSTALL_DIR) $(1)/usr/lib/pjsip-api
-	$(CP) $(PKG_INSTALL_DIR)/usr/pjsip-$(BUILD_VARIANT)/lib/* $(1)/usr/lib/pjsip-api
+	$(INSTALL_DIR) $(1)/usr/include/pjsip
+	$(CP) $(PKG_INSTALL_DIR)/usr/pjsip-$(BUILD_VARIANT)/include/* $(1)/usr/include/pjsip
+	$(INSTALL_DIR) $(1)/usr/lib/pjsip
+	$(CP) $(PKG_INSTALL_DIR)/usr/pjsip-$(BUILD_VARIANT)/lib/* $(1)/usr/lib/pjsip
 endef
 
 $(eval $(call BuildPackage,pjsip-oss))

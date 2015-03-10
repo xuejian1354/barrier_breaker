@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shome
-PKG_VERSION:=2015-01-31
+PKG_VERSION:=2015-03-10
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
@@ -53,7 +53,10 @@ SHome app is a program that manage smart home feature function.
 endef
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) all
+	$(MAKE) -C $(PKG_BUILD_DIR) \
+	prefix=$(patsubst %uclibc-,%,$(TARGET_CROSS)) \
+	FIXFLAGS="-I$(STAGING_DIR)/usr/include/pjsip \
+	  -L$(STAGING_DIR)/usr/lib/pjsip -L$(STAGING_DIR)/usr/lib/jsoncpp"
 endef
 
 define Build/InstallDev

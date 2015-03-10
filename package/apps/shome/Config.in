@@ -9,7 +9,7 @@ config PACKAGE_shome-gitsite
 
 config PACKAGE_shome-version
 	string "shome git version" if DEVEL
-	default "0f90c155afcda22d2ba0b707e62b3e135b213fb2"
+	default "v1.0.2"
 	help
 	  git version
 
