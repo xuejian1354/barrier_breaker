@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=connect_listen
-PKG_VERSION:=2015-02-26
+PKG_VERSION:=2015-03-18
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
@@ -59,6 +59,8 @@ endef
 define Package/connect-listen/install
     $(INSTALL_DIR) $(1)/usr/local/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/connect_listen $(1)/usr/local/bin/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/connect_listen.init $(1)/etc/init.d/connect_listen
 endef
 
 $(eval $(call BuildPackage,connect-listen))
