@@ -3,6 +3,9 @@
 .*.swp
 /env
 /dl
+!/dl-source/*.o
+/dl-source/*.dl
+/dl-source/*.md5sum
 /.config
 /.config.old
 /bin
@@ -10,8 +13,12 @@
 /staging_dir
 /tmp
 /logs
+/feeds
 /feeds.conf
 /files
+/package/feeds
+/package/openwrt-packages
+/scripts/config/
 *.orig
 *.rej
 *~
