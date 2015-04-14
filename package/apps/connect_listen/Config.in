@@ -3,13 +3,13 @@ menu "Configuration"
 
 config PACKAGE_connect-listen-gitsite
 	string "connect-listen git site" if DEVEL
-	default "git@loongsky1:openwrt/connect_listen.git"
+	default "git@loongsky1:smartserver/transconn.git"
 	help
 	  git repository site
 
 config PACKAGE_connect-listen-version
 	string "connect-listen git version" if DEVEL
-	default "v0.9"
+	default "v0.1"
 	help
 	  git version
 

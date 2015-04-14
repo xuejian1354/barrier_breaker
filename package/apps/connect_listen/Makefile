@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=connect_listen
-PKG_VERSION:=2015-03-18
+PKG_VERSION:=2015-04-13
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
@@ -50,7 +50,7 @@ Connector app is a program that manage smart home feature function.
 endef
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) all prefix=$(TARGET_CROSS)
+	$(MAKE) -C $(PKG_BUILD_DIR) connect_listen cprefix=$(TARGET_CROSS)
 endef
 
 define Build/InstallDev
