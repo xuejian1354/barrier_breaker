@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=connect_listen
-PKG_VERSION:=2015-04-17
+PKG_VERSION:=2015-05-06
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
