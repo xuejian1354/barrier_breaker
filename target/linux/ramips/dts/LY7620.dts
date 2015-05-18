@@ -47,8 +47,10 @@
 	pinctrl {
 		state_default: pinctrl0 {
 			default {
-				ralink,group = "i2c", "rgmii1", "rgmii2";
+				ralink,group = "i2c";
 				ralink,function = "gpio";
+				
+				status = "disabled";
 			};
 		};
 	};
@@ -101,13 +103,8 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 		poll-interval = <20>;
-		s2 {
-			label = "S2";
-			gpios = <&gpio0 1 1>;
-			linux,code = <0x100>;
-		};
-		s3 {
-			label = "S3";
+		s1 {
+			label = "S1";
 			gpios = <&gpio0 2 1>;
 			linux,code = <0x101>;
 		};
