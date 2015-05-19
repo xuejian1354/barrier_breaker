@@ -2,14 +2,14 @@
 # Copyright (C) 2006-2011 OpenWrt.org
 
 START=89
-#STOP=11
+STOP=11
 
-SERVICE_USE_PID=1
+USE_PROCD=1
+PROG=/usr/local/bin/connect_listen
 
-start() {
-	service_start /usr/local/bin/connect_listen /dev/ttyS1 11566 11576
+start_service() {
+	procd_open_instance
+        procd_set_param command $PROG /dev/ttyS1 11566 11576
+        procd_close_instance
 }
 
-stop() {
-	service_stop /usr/local/bin/connect_listen
-}
