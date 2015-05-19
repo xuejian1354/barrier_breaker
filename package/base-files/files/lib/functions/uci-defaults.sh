@@ -245,3 +245,13 @@ set network.@switch_port[-1].port='$port'
 EOF
 }
 
+ucidef_add_button_reset() {
+	local button=$1
+	local action=$2
+	uci batch <<EOF
+add system button
+set system.@button[-1].button='$button'
+set system.@button[-1].action='$action'
+set system.@button[-1].handler='/etc/rc.button/reset'
+EOF
+}

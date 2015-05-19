@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. /lib/functions.sh
+. /lib/ramips.sh
+. /lib/functions/uci-defaults.sh
+. /lib/functions/system.sh
+
+ramips_setup_buttons()
+{
+	local board="$1"
+	case $board in
+	ly7620)
+		ucidef_add_button_reset "BTN_1" "released"
+		;;
+	*)
+		;;
+	esac
+}
+
+[ -e /etc/config/system ] || touch /etc/config/system
+
+board=$(ramips_board_name)
+
+ramips_setup_buttons $board
+uci commit system
+
+exit 0
