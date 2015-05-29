@@ -9,7 +9,7 @@ config PACKAGE_connect-listen-gitsite
 
 config PACKAGE_connect-listen-version
 	string "connect-listen git version" if DEVEL
-	default "v0.13"
+	default "master"
 	help
 	  git version
 
