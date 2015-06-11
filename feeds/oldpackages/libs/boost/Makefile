@@ -10,21 +10,20 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=boost
-PKG_VERSION:=1_55_0
+PKG_VERSION:=1_51_0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/boost
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)_$(PKG_VERSION)
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/$(PKG_NAME)_$(PKG_VERSION)
-PKG_MD5SUM:=93780777cfbf999a600f62883bd54b17
+PKG_MD5SUM:=6a1f32d902203ac70fbec78af95b3cf8
 
 PKG_BUILD_DEPENDS:=boost/host
-PKG_BUILD_PARALLEL:=1
+PKG_BUILD_PARALLEL:=0
+PKG_USE_MIPS16:=0
 
 PKG_CONFIG_DEPENDS := \
-	CONFIG_PACKAGE_boost-atomic \
-	CONFIG_PACKAGE_boost-chrono \
 	CONFIG_PACKAGE_boost-date_time \
 	CONFIG_PACKAGE_boost-filesystem \
 	CONFIG_PACKAGE_boost-graph \
@@ -54,11 +53,6 @@ endef
 
 define Package/boost/Default/description
   Boost provides free peer-reviewed portable C++ source libraries
-endef
-
-define Package/boost-atomic
-  $(call Package/boost/Default)
-  TITLE+= (atomic)
 endef
 
 define Package/boost-chrono
@@ -159,19 +153,19 @@ endef
 define Package/boost-thread
   $(call Package/boost/Default)
   TITLE+= (thread)
-  DEPENDS+= +boost-atomic +boost-system
+  DEPENDS+= +boost-system +boost-chrono
 endef
 
 define Package/boost-timer
   $(call Package/boost/Default)
   TITLE+= (timer)
-  DEPENDS+= +boost-chrono
+  DEPENDS+= boost-chrono
 endef
 
 define Package/boost-wave
   $(call Package/boost/Default)
   TITLE+= (wave)
-  DEPENDS+= +boost-chrono +boost-date_time +boost-thread +boost-filesystem
+  DEPENDS+= +boost-date_time +boost-thread +boost-filesystem
 endef
 
 define Package/boost
@@ -192,7 +186,7 @@ CONFIGURE_PREFIX:=$(PKG_INSTALL_DIR)
 TARGET_LDFLAGS += -pthread -lrt
 
 define Build/Compile
-	+( cd $(PKG_BUILD_DIR) ; \
+	( cd $(PKG_BUILD_DIR) ; \
 		echo "using gcc : $(ARCH) : $(GNU_TARGET_NAME)-gcc : <compileflags>\"$(TARGET_CFLAGS)\" <cxxflags>\"$(TARGET_CXXFLAGS)\" <linkflags>\"$(TARGET_LDFLAGS)\" ;" > tools/build/v2/user-config.jam ; \
 		$(if $(CONFIG_PACKAGE_boost-python), \
 			echo "using python : : $(STAGING_DIR_ROOT)/usr/bin/python :	$(STAGING_DIR)/usr/include/python2.7/ ;" >> \
@@ -200,11 +194,9 @@ define Build/Compile
 		) \
 		bjam \
 			'-sBUILD=release <optimization>space <inlining>on <debug-symbols>off' \
-			$(filter -j%,$(PKG_JOBS)) \
 			--toolset=gcc-$(ARCH) --build-type=minimal --layout=system \
 			--disable-long-double \
 			$(CONFIGURE_ARGS) \
-			$(if $(CONFIG_PACKAGE_boost-atomic),,--without-atomic) \
 			$(if $(CONFIG_PACKAGE_boost-chrono),,--without-chrono) \
 			$(if $(CONFIG_PACKAGE_boost-date_time),,--without-date_time) \
 			$(if $(CONFIG_PACKAGE_boost-exception),,--without-exception) \
@@ -270,10 +262,6 @@ define Package/boost/Default/install
 	$(CP) \
 		$(PKG_INSTALL_DIR)/lib/libboost_$(2)*.so* \
 		$(1)/usr/lib/
-endef
-
-define Package/boost-atomic/install
-  $(call Package/boost/Default/install,$(1),atomic)
 endef
 
 define Package/boost-chrono/install
@@ -367,7 +355,6 @@ endef
 
 $(eval $(call HostBuild))
 $(eval $(call BuildPackage,boost))
-$(eval $(call BuildPackage,boost-atomic))
 $(eval $(call BuildPackage,boost-chrono))
 $(eval $(call BuildPackage,boost-date_time))
 #$(eval $(call BuildPackage,boost-exception))

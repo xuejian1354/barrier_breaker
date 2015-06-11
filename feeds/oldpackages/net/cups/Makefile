@@ -398,6 +398,7 @@ define Build/Configure
 		--enable-shared \
 		--enable-image \
 		--enable-libusb \
+		--disable-acl \
 		--disable-dbus \
 		--disable-dnssd \
 		--disable-launchd \
