@@ -984,10 +984,9 @@ config wifi-iface
 	option device   ra${i}
 	option network	lan
 	option mode     ap
-	option ssid     LY7620${i#0}_$(cat /sys/class/net/ra${i}/address|awk -F ":" '{print $4""$5""$6 }'| tr a-z A-Z)
-	option encryption 'wep-shared'
-	option key '1'
-	option key1 '1234567890'
+	option ssid     LYSOC${i#0}_$(cat /sys/class/net/ra${i}/address|awk -F ":" '{print $4""$5""$6 }'| tr a-z A-Z)AP
+	option encryption 'psk2'
+	option key '12345678'
 EOF
 
 	ifconfig ra0 down 
