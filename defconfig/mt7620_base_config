@@ -1952,6 +1952,7 @@ CONFIG_PACKAGE_qos-scripts=y
 # CONFIG_PACKAGE_resolveip is not set
 # CONFIG_PACKAGE_rpcd is not set
 # CONFIG_PACKAGE_sflowovsd is not set
+# CONFIG_PACKAGE_sqm-scripts is not set
 CONFIG_PACKAGE_swconfig=y
 CONFIG_PACKAGE_ubox=y
 CONFIG_PACKAGE_ubus=y
@@ -2557,13 +2558,14 @@ CONFIG_PACKAGE_MAC80211_MESH=y
 CONFIG_PACKAGE_kmod-rt2860v2=y
 CONFIG_RT2860V2_AP=y
 CONFIG_RT2860V2_AP_V24_DATA_STRUCTURE=y
-# CONFIG_RT2860V2_AP_LED is not set
-# CONFIG_RT2860V2_AP_WSC is not set
+CONFIG_RT2860V2_AP_LED=y
+CONFIG_RT2860V2_AP_WSC=y
+CONFIG_RT2860V2_AP_WSC_V2=y
 # CONFIG_RT2860V2_AP_LLTD is not set
 # CONFIG_RT2860V2_AP_WDS is not set
-# CONFIG_RT2860V2_AP_MBSS is not set
+CONFIG_RT2860V2_AP_MBSS=y
 # CONFIG_RT2860V2_AP_APCLI is not set
-# CONFIG_RT2860V2_AP_IGMP_SNOOP is not set
+CONFIG_RT2860V2_AP_IGMP_SNOOP=y
 # CONFIG_RT2860V2_AP_NETIF_BLOCK is not set
 # CONFIG_RT2860V2_AP_DFS is not set
 # CONFIG_RT2860V2_AP_CARRIER is not set
@@ -2801,7 +2803,6 @@ CONFIG_PACKAGE_libsqlite3=y
 # CONFIG_PACKAGE_argtable is not set
 # CONFIG_PACKAGE_bind-libs is not set
 # CONFIG_PACKAGE_bluez-libs is not set
-# CONFIG_PACKAGE_boost-atomic is not set
 # CONFIG_PACKAGE_boost-chrono is not set
 # CONFIG_PACKAGE_boost-date_time is not set
 # CONFIG_PACKAGE_boost-filesystem is not set
@@ -2818,7 +2819,6 @@ CONFIG_PACKAGE_libsqlite3=y
 # CONFIG_PACKAGE_boost-system is not set
 # CONFIG_PACKAGE_boost-test is not set
 # CONFIG_PACKAGE_boost-thread is not set
-# CONFIG_PACKAGE_boost-timer is not set
 # CONFIG_PACKAGE_boost-wave is not set
 # CONFIG_PACKAGE_ccid is not set
 # CONFIG_PACKAGE_cgilib is not set
@@ -2903,15 +2903,20 @@ CONFIG_PACKAGE_libblobmsg-json=y
 # CONFIG_PACKAGE_libffmpeg-custom is not set
 # CONFIG_PACKAGE_libffmpeg-full is not set
 # CONFIG_PACKAGE_libffmpeg-mini is not set
+# CONFIG_PACKAGE_libflac is not set
 # CONFIG_PACKAGE_libfreecwmp is not set
 # CONFIG_PACKAGE_libfreefare is not set
 # CONFIG_PACKAGE_libfreenect is not set
+# CONFIG_PACKAGE_libfreetype is not set
 # CONFIG_PACKAGE_libftdi is not set
 # CONFIG_PACKAGE_libftdi1 is not set
 # CONFIG_PACKAGE_libgcrypt is not set
 # CONFIG_PACKAGE_libgd is not set
+# CONFIG_PACKAGE_libgdbm is not set
 # CONFIG_PACKAGE_libgee is not set
+# CONFIG_PACKAGE_libgmp is not set
 # CONFIG_PACKAGE_libgpg-error is not set
+# CONFIG_PACKAGE_libgpgme is not set
 # CONFIG_PACKAGE_libgphoto2 is not set
 # CONFIG_PACKAGE_libgps is not set
 # CONFIG_PACKAGE_libgpsd is not set
@@ -2923,11 +2928,6 @@ CONFIG_PACKAGE_libblobmsg-json=y
 # CONFIG_PACKAGE_libgupnp-av is not set
 # CONFIG_PACKAGE_libgupnp-dlna is not set
 # CONFIG_PACKAGE_libhamlib is not set
-# CONFIG_PACKAGE_libflac is not set
-# CONFIG_PACKAGE_libfreetype is not set
-# CONFIG_PACKAGE_libgdbm is not set
-# CONFIG_PACKAGE_libgmp is not set
-# CONFIG_PACKAGE_libgpgme is not set
 # CONFIG_PACKAGE_libhowl is not set
 # CONFIG_PACKAGE_libi2c is not set
 # CONFIG_PACKAGE_libiconv is not set
@@ -3175,6 +3175,7 @@ CONFIG_PACKAGE_luci-app-qos=y
 CONFIG_PACKAGE_luci-app-samba=y
 # CONFIG_PACKAGE_luci-app-siitwizard is not set
 # CONFIG_PACKAGE_luci-app-splash is not set
+# CONFIG_PACKAGE_luci-app-sqm is not set
 # CONFIG_PACKAGE_luci-app-statistics is not set
 # CONFIG_PACKAGE_luci-app-tinyproxy is not set
 # CONFIG_PACKAGE_luci-app-transmission is not set
@@ -4026,7 +4027,6 @@ CONFIG_PACKAGE_openssh-server=y
 # CONFIG_PACKAGE_strongswan-mod-smp is not set
 # CONFIG_PACKAGE_strongswan-mod-socket-default is not set
 # CONFIG_PACKAGE_strongswan-mod-socket-dynamic is not set
-# CONFIG_PACKAGE_strongswan-mod-sql is not set
 # CONFIG_PACKAGE_strongswan-mod-sqlite is not set
 # CONFIG_PACKAGE_strongswan-mod-stroke is not set
 # CONFIG_PACKAGE_strongswan-mod-test-vectors is not set
