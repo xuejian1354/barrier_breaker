@@ -64,6 +64,7 @@ rt2860v2_sta-objs += ../rt2860v2/os/linux/rt_linux.o
 rt2860v2_sta-objs += ../rt2860v2/os/linux/rt_profile.o
 rt2860v2_sta-objs += ../rt2860v2/os/linux/rt_main_dev.o
 rt2860v2_sta-objs += ../rt2860v2/os/linux/sta_ioctl.o
+rt2860v2_sta-objs += ../rt2860v2/os/linux/rt_flash.o
 rt2860v2_sta-objs += ../rt2860v2/chips/rtmp_chip.o
 
 rt2860v2_sta-objs += ../rt2860v2/ate/common/rt_ate.o

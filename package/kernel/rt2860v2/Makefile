@@ -61,7 +61,7 @@ endef
 
 define KernelPackage/rt2860v2/install
 	$(INSTALL_DIR) $(1)/lib/wifi
-	$(INSTALL_DATA) ./files/rt2860v2.sh $(1)/lib/wifi
+	$(INSTALL_DATA) ./files/$(CONFIG_RT2860V2_MODULE)/rt2860v2.sh $(1)/lib/wifi
 endef
 
 $(eval $(call KernelPackage,rt2860v2))
