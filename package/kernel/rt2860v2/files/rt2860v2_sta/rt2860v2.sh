@@ -629,9 +629,9 @@ config wifi-iface
 	option device   ra${i}
 	option network	wan
 	option mode     sta
-	option ssid     longyuan
+	option ssid     LYSOC_762058AP
 	option encryption 'psk2'
-	option key '0987654321'
+	option key '12345678'
 EOF
 
 	ifconfig ra0 down 
