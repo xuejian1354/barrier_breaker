@@ -1,4 +1,51 @@
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
+#!/bin/ash
+##
+## Change MAC address of localtion.
+##
+__r1=`cat /proc/sys/kernel/random/uuid | md5sum | cut -c1-2`
+__r2=`cat /proc/sys/kernel/random/uuid | md5sum | cut -c11-12`
+__r3=`cat /proc/sys/kernel/random/uuid | md5sum | cut -c21-22`
+
+fac_partitions="/dev/mtdblock2"
+fac_config="/root/.fac_config"
+log_file="/root/.save_mac.log"
+old_mac="00:0c:43:76:20:56"
+before_mac="`cat /sys/class/net/eth0.2/address`"
+after_mac="${old_mac:0:8}:${__r1}:${__r2}:${__r3}"
+
+#echo "Random MAC will be generated. -- ${after_mac}"
+if [ -f "${fac_config}" ]; then
+	##TODO: dd writing '/dev/mtdblock2' Operation not permitted
+	##dd if=${fac_config} of=${fac_partitions} bs=1024 count=64
+	after_mac="`cat "${fac_config}" | awk 'NR==1 {print $0}' | cut -c1-17`"
+	##after_mac="${after_mac:0:1}:${after_mac:2:3}:${after_mac:4:5}:	\
+	##		${after_mac:6:7}:${after_mac:8:9}:${after_mac:10:11}"
+	rm -f "${log_file}"
+	#echo "Upgrade Now. -- ${after_mac}"
+fi
+
+if [ ! -f "${log_file}" ]; then
+	#echo "Configuration Now. -- ${after_mac}"
+	echo "=========== Change MAC ====================" >  ${log_file}
+	echo "Old    : ${old_mac}"			   >> ${log_file}
+	echo "Before : ${before_mac}"			   >> ${log_file}
+	echo "After  : ${after_mac}"			   >> ${log_file}
+	echo "===========================================" >> ${log_file}
+	if [ -f "${fac_config}" ]; then
+		rm -f "${fac_config}"
+	fi
+fi
+	after_mac="`cat "${log_file}" | \
+			awk -F ':' 'NR==4 {print $2":"$3":"$4":"$5":"$6":"$7}' | \
+			sed -e 's/[\t]//g' \
+			    -e 's/[[:space:]]//g'`"
+
+ifconfig eth0.2 down
+ifconfig eth0.2 hw ether ${after_mac}
+ifconfig eth0.2 up
+#echo "Final. -- ${after_mac}"
+##End of script for change MAC
 
 exit 0
