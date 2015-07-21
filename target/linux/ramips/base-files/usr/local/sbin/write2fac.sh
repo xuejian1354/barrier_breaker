@@ -69,8 +69,7 @@ EOF
 	eval "dd if=$(find_mtd_part "$portition") of=${old_tmp_file} skip=6 bs=1 count=${size} 2>/dev/null"
 	cat "${old_tmp_file}" >>"$new_tmp_file"
 	rm -f "${old_tmp_file}"
-	eval "${write2fac} $(find_mtd_part "$portition") ${new_tmp_file} ${size}"
-	cat ${new_tmp_file} > /dev/mtdblock2
+	cat "${new_tmp_file}" >"$(find_mtd_part "$portition")"
 	rm -f "${new_tmp_file}"
 	cp -f /rom/etc/uci-defaults/02_network /etc/uci-defaults/02_network
 	rm -f /etc/config/network
