@@ -1,78 +1,77 @@
 #!/bin/ash
 
-export mac=
-export dir="get"
-export help=0
-export portition="factory"
-export offset="0"
-export size=$((64 * 1024))
-export tmp_dir="/tmp"
+export cmd=
+export offset=
+export size=
+export file=
+export partition="factory"
 
-while [ -n "$1" ]; do
-	case "$1" in
-		set) export dir="$1";mac="$2";shift;;
-		get) export dir="$1";break;;
-		-h | --help) export help=1;break;;
-		-*) 
-			echo "Invalid options: $1"
-			exit 3
+[ -z "$1" ] && exit 1
+[ $# -lt 3 ] && exit 1
+
+case "$1" in
+	write | w)
+		export cmd="$1"
+		export offset=$2
+		export size=$3
+		[ -z "$4" ] && exit 1
+		export file="$4"
 		;;
-		*) break;;
-	esac
-	shift;
-done
+	read | r)
+		export cmd="$1"
+		export offset=$2
+		export size=$3
+		;;
+	-h | --help)
+		usage
+		return 0
+		;;
+	*) 
+		echo "Invalid options: $1"
+		exit -2
+		;;
+esac
 
-## help option
-[ $help -gt 0 ] && {
+usage() {
 	cat <<EOF
-Usage:	$0 [<options>] <command> mac_address
+Usage:	$0 <command> <offset> <size> [<file>]
 
 command:
-	set	write new mac address to factory portition
-	get	read mac address from factory portition
+	write | w	write new mac address to factory partition
+	read  | r	read mac address from factory partition
+
+example:
+	write factory partition: $0 <write | w> <offset> <size> <file>	
+	read factory partition:	 $0 <read  | r> <offset> <size>
 EOF
-	exit 4
 }
 
-
-[ -f "/lib/functions.sh" ] || {
-	echo "Unknow /lib/functions.sh"
-	exit 1
-}
-. /lib/functions.sh
-
-[ -f "/lib/functions/system.sh" ] || {
-	echo "Unknow /lib/functions/system.sh"
-	exit 2
-}
-. /lib/functions/system.sh
-
-[ "$dir" = "get" ] && {
-	echo $(mtd_get_mac_binary "$portition" "$offset")
-
-	return 0
+find_mtd_index() {
+        local part="$(grep "\"$1\"" /proc/mtd | awk -F: '{print $1}')"
+        local index="${part##mtd}"
+                                 
+        echo ${index}                 
 }
 
-[ "$dir" = "set" ] && {
-	export old_tmp_file="${tmp_dir}/old_tmp_file"
-	export new_tmp_file="${tmp_dir}/new_tmp_file"
+find_mtd_part() {                                                     
+        local index=$(find_mtd_index "$1")
+        local prefix=/dev/mtdblock
+                                          
+        [ -d /dev/mtdblock ] && prefix=/dev/mtdblock/
+        echo "${index:+$prefix$index}"                                      
+}
 
-	[ -z "$mac" ] && {
-		echo "unknow mac"
-		exit 5
-	}
+[ "$cmd" = "read" ] || [ "$cmd" = "r" ] && \
+{
+	eval "dd if=$(find_mtd_part "$partition") bs=1 count=$size skip=$offset 2>/dev/null | \
+	hexdump -v -n $size -e '$(($size - 1))/1 \"%02x-\" \"%02x\\n\"'"
 
-	rm -f "${old_tmp_file}"
-	rm -f "${new_tmp_file}"
-	
-	echo -ne "\\x${mac//:/\\x}" >"${new_tmp_file}"
-	eval "dd if=$(find_mtd_part "$portition") of=${old_tmp_file} skip=6 bs=1 count=${size} 2>/dev/null"
-	cat "${old_tmp_file}" >>"$new_tmp_file"
-	rm -f "${old_tmp_file}"
-	cat "${new_tmp_file}" >"$(find_mtd_part "$portition")"
-	rm -f "${new_tmp_file}"
-	cp -f /rom/etc/uci-defaults/02_network /etc/uci-defaults/02_network
-	rm -f /etc/config/network
+	return $?
+}
 
-	return 0
+[ "$cmd" = "write" ] || [ "$cmd" = "w" ] && \
+{
+	eval "dd if=$file of=$(find_mtd_part "$partition") bs=1 count=$size skip=$offset 2>/dev/null"
+
+	return $?
 }
