@@ -248,10 +248,14 @@ EOF
 ucidef_add_button_reset() {
 	local button=$1
 	local action=$2
+	local min=$3
+	local max=$4
 	uci batch <<EOF
 add system button
 set system.@button[-1].button='$button'
 set system.@button[-1].action='$action'
 set system.@button[-1].handler='/etc/rc.button/reset'
+set system.@button[-1].min='$min'
+set system.@button[-1].max='$max'
 EOF
 }

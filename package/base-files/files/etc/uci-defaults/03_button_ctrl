@@ -10,7 +10,7 @@ ramips_setup_buttons()
 	local board="$1"
 	case $board in
 	ly7620)
-		ucidef_add_button_reset "BTN_1" "released"
+		ucidef_add_button_reset "BTN_1" "released" 10 15
 		;;
 	*)
 		;;
