@@ -61,16 +61,13 @@ find_mtd_part() {
         echo "${index:+$prefix$index}"                                      
 }
 
-[ "$cmd" = "read" ] || [ "$cmd" = "r" ] && \
-{
-	eval "dd if=$(find_mtd_part "$partition") bs=1 count=$size skip=$offset 2>/dev/null | \
-	hexdump -v -n $size -e '$(($size - 1))/1 \"%02x-\" \"%02x\\n\"'"
+[ "$cmd" = "read" ] || [ "$cmd" = "r" ] && {
+	eval "dd if=$(find_mtd_part "$partition") bs=1 count=$size skip=$offset 2>/dev/null"
 
 	return $?
 }
 
-[ "$cmd" = "write" ] || [ "$cmd" = "w" ] && \
-{
+[ "$cmd" = "write" ] || [ "$cmd" = "w" ] && {
 	eval "dd if=$file of=$(find_mtd_part "$partition") bs=1 count=$size skip=$offset 2>/dev/null"
 
 	return $?
