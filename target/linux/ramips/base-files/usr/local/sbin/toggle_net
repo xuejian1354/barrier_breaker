@@ -10,7 +10,7 @@ LOG() {
 }
 
 if [ "$1" = up -o "$1" = down ]; then
-	ifname=$(uci get network.wan.ifname)
+	ifname="$(uci get network.wan.ifname)"
 	if [ "$1" = up ]; then
 		if [ "$ifname" = "$eth_ifname" ]; then
 			ifconfig $ifname up
