@@ -279,11 +279,11 @@ static void mt7620a_handle_carrier(struct fe_priv *priv)
 void mt7620_mdio_link_adjust(struct fe_priv *priv, int port)
 {
 	if (priv->link[port]) {
-		netdev_info(priv->netdev, "<1>port %d link up (%sMbps/%s duplex)\n",
+		netdev_info(priv->netdev, "port %d link up (%sMbps/%s duplex)\n",
 			port, fe_speed_str(priv->phy->speed[port]),
 			(DUPLEX_FULL == priv->phy->duplex[port]) ? "Full" : "Half");
 	} else {
-		netdev_info(priv->netdev, "<1>port %d link down\n", port);
+		netdev_info(priv->netdev, "port %d link down\n", port);
 	}
 	mt7620a_handle_carrier(priv);
 }
