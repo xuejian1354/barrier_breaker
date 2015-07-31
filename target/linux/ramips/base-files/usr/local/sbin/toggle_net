@@ -1,0 +1,33 @@
+#!/bin/sh
+
+debug=0
+local wifi_ifname="ra0"
+local eth_ifname="eth0.2"
+local ifname
+
+LOG() {
+	[ $debug -gt 0 ] && logger "$*"
+}
+
+if [ "$1" = up -o "$1" = down ]; then
+	ifname=$(uci get network.wan.ifname)
+	if [ "$1" = up ]; then
+		if [ "$ifname" = "$eth_ifname" ]; then
+			ifconfig $ifname up
+			return 0
+		fi
+		ifname=$eth_ifname
+	else
+		if [ "$ifname" = "$wifi_ifname" ]; then
+			ifconfig $ifname up
+			return 0
+		fi
+		ifname=$wifi_ifname
+	fi
+	
+	uci set network.wan.ifname=$ifname
+	uci commit network
+	ubus call network reload
+fi
+
+LOG "$0 : switch network $ifname"
