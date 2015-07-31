@@ -111,6 +111,11 @@
 #define PHY_PRE_EN		BIT(30)
 #define PMY_MDC_CONF(_x)	((_x & 0x3f) << 24)
 
+#define __HOTPLUG_TOGGLE_NETWORK__
+#ifdef __HOTPLUG_TOGGLE_NETWORK__
+#include <linux/kmod.h>
+#endif
+
 enum {
 	/* Global attributes. */
 	GSW_ATTR_ENABLE_VLAN,
@@ -273,12 +278,13 @@ static void mt7620a_handle_carrier(struct fe_priv *priv)
 
 void mt7620_mdio_link_adjust(struct fe_priv *priv, int port)
 {
-	if (priv->link[port])
+	if (priv->link[port]) {
 		netdev_info(priv->netdev, "port %d link up (%sMbps/%s duplex)\n",
 			port, fe_speed_str(priv->phy->speed[port]),
 			(DUPLEX_FULL == priv->phy->duplex[port]) ? "Full" : "Half");
-	else
+	} else {
 		netdev_info(priv->netdev, "port %d link down\n", port);
+	}
 	mt7620a_handle_carrier(priv);
 }
 
@@ -289,6 +295,27 @@ static irqreturn_t gsw_interrupt_mt7620(int irq, void *_priv)
 	u32 status;
 	int i, max = (gsw->port4 == PORT4_EPHY) ? (4) : (3);
 
+#ifdef __HOTPLUG_TOGGLE_NETWORK__
+	int umh_ret __attribute__((unused)) = 0;
+	struct subprocess_info *info;
+	static char *envp[] = {
+                "HOME=/",
+                "TERM=linux",
+                "PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin",
+                NULL
+        };
+	char *argv_up[] = {
+		"toggle_net",
+		"up",
+		NULL
+	}; 
+	char *argv_down[] = {
+		"toggle_net",
+		"down",
+		NULL
+	}; 
+#endif
+
 	status = gsw_r32(gsw, GSW_REG_ISR);
 	if (status & PORT_IRQ_ST_CHG)
 		for (i = 0; i <= max; i++) {
@@ -296,12 +323,25 @@ static irqreturn_t gsw_interrupt_mt7620(int irq, void *_priv)
 			int link = status & 0x1;
 
 			if (link != priv->link[i]) {
-				if (link)
+				if (link) {
 					netdev_info(priv->netdev, "port %d link up (%sMbps/%s duplex)\n",
 							i, fe_speed_str((status >> 2) & 3),
 							(status & 0x2) ? "Full" : "Half");
-				else
+#ifdef __HOTPLUG_TOGGLE_NETWORK__
+					info = call_usermodehelper_setup("/usr/local/sbin/toggle_net", argv_up, envp, GFP_KERNEL, \
+											NULL, NULL, NULL);
+					if (info)
+						umh_ret = call_usermodehelper_exec(info, UMH_NO_WAIT);
+#endif
+				} else {
 					netdev_info(priv->netdev, "port %d link down\n", i);
+#ifdef __HOTPLUG_TOGGLE_NETWORK__
+					info = call_usermodehelper_setup("/usr/local/sbin/toggle_net", argv_down, envp, GFP_KERNEL, \
+											NULL, NULL, NULL);
+					if (info)
+						umh_ret = call_usermodehelper_exec(info, UMH_NO_WAIT);
+#endif
+				}
 			}
 
 			priv->link[i] = link;
