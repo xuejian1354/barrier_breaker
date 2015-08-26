@@ -1,0 +1,7 @@
+#!/bin/sh
+
+logger "system reboot now ..."
+
+echo "REBOOT" > /dev/console
+sync
+reboot
