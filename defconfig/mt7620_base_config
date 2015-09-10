@@ -4647,7 +4647,7 @@ CONFIG_PACKAGE_file=y
 # CONFIG_PACKAGE_firmwarehotplug is not set
 # CONFIG_PACKAGE_flashrom is not set
 # CONFIG_PACKAGE_flock is not set
-# CONFIG_PACKAGE_fortune-mod is not set
+CONFIG_PACKAGE_fortune-mod=y
 # CONFIG_PACKAGE_fowsr is not set
 # CONFIG_PACKAGE_freecwmp is not set
 # CONFIG_PACKAGE_freenetconfd is not set
