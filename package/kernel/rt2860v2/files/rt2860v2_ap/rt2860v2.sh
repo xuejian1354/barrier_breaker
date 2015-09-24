@@ -606,7 +606,7 @@ detect_rt2860v2() {
 	local i=-1
 #判断系统是否存在rt2860v2_sta，不存在则退出
 	cd /sys/module/
-	[ -d rt2860v2_sta ] || return
+	[ -d rt2860v2_ap ] || return
 #检测系统存在多少个wifi接口
 	while grep -qs "^ *ra$((++i)):" /proc/net/dev; do
 		config_get type ra${i} type
