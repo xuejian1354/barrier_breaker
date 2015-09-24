@@ -138,6 +138,12 @@ service_triggers()
 }
 
 start_service() {
+	local mod=ap
 	config_load uhttpd
 	config_foreach start_instance uhttpd
+	[ -d "/sys/module/rt2860v2_sta" ] && mod=sta
+	local files="`find /usr/lib/lua/luci -name "*.$mod"`"
+	for i in $files; do
+		mv $i ${i//.${mod/}}
+	done
 }

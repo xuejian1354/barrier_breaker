@@ -10,35 +10,35 @@ prepare_config() {
 
 	local num=0 mode disabled
 	
-#准备产生RaX的无线配置
+#准备产生RaX的无线配置: rt2860v2
 	local device=$1
 
-#获取当前的无线频道
+#获取当前的无线频道 "auto"
 	config_get channel $device channel
 
-#获取当前的802.11无线模式
+#获取当前的802.11无线模式: sta
 	config_get hwmode $device mode
 	
-#获取WMM支持
+#获取WMM支持: ""
 	config_get wmm $device wmm
 	
-#获取设备的传输功率
+#获取设备的传输功率: 100
 	config_get txpower $device txpower
 	
-#获取设备的HT（频宽）
+#获取设备的HT（频宽）: '20+40'
 	config_get ht $device ht
 
-#获取国家代码	
+#获取国家代码: CN	
 	config_get country $device country
 	
-#是否有MAC过滤
+#是否有MAC过滤: ""
 	config_get macpolicy $device macpolicy
 
-#MAC地址过滤列表
+#MAC地址过滤列表: ""
 	config_get maclist $device maclist
-#字符格式转义
+#字符格式转义: ""
 	ra_maclist="${maclist// /;};"
-#是否支持GREEN AP功能
+#是否支持GREEN AP功能:greenap: 0, antdiv: "", frag: 2346
 	config_get_bool greenap $device greenap 0
 
 	config_get_bool antdiv "$device" diversity
@@ -231,10 +231,16 @@ EOF
 }
 
 reload_rt2860v2() {
-	ifconfig ra0 down
-	rmmod rt2860v2_ap 
+	local mod="rt2860v2_ap"
 
-	insmod rt2860v2_ap
+	[ -f "/lib/modules/$(uname -r)/rt2860v2_sta.ko" ] && {
+		mod=rt2860v2_sta
+	}
+
+	ifconfig ra0 down
+	rmmod ${mod}
+
+	insmod ${mod}
 	ifconfig ra0 up
 }
 
@@ -312,21 +318,20 @@ enable_rt2860v2() {
 		#STA APClient配置
 		[ "$mode" == "sta" ] && {
 					#如果为apcli模式，指定接口名称为apcli0
-					ifname="apcli0"
 					echo "#Encryption" >/tmp/wifi_encryption_${ifname}.dat
 					ifconfig $ifname down
-					iwpriv $ifname set ApCliEnable=0 
-					iwpriv $ifname set ApCliSsid=$ssid
+					iwpriv $ifname set Enable=0
+					iwpriv $ifname set SSID=$ssid
 					config_get bssid $vif bssid 0
 					[ -z "$mode" ] && {
-					iwpriv $ifname set ApCliBssid=$bssid
+					iwpriv $ifname set BSSID=$bssid
 					echo "APCli use bssid connect."
 					}
 			case "$encryption" in
 				none)
 					echo "NONE" >>/tmp/wifi_encryption_${ifname}.dat
-					iwpriv $ifname set ApCliAuthMode=OPEN 
-					iwpriv $ifname set ApCliEncrypType=NONE 
+					iwpriv $ifname set AuthMode=OPEN
+					iwpriv $ifname set EncrypType=NONE 
 					;;
 				WEP|wep|wep-open)
 					echo "WEP" >>/tmp/wifi_encryption_${ifname}.dat
@@ -342,9 +347,9 @@ enable_rt2860v2() {
 					;;
 				WPA*|wpa*|WPA2-PSK|psk*)
 					echo "WPA2" >>/tmp/wifi_encryption_${ifname}.dat
-					iwpriv $ifname set ApCliAuthMode=WPAPSKWPA2PSK
-					iwpriv $ifname set ApCliEncrypType=AES
-					iwpriv $ifname set ApCliWPAPSK=$key
+					iwpriv $ifname set AuthMode=WPA2PSK
+					iwpriv $ifname set EncrypType=AES
+					iwpriv $ifname set WPAPSK=$key
 					echo "WPAPSKWPA2PSK" >>/tmp/wifi_encryption_${ifname}.dat
 					echo "TKIPAES" >>/tmp/wifi_encryption_${ifname}.dat
 					;;
@@ -353,7 +358,7 @@ enable_rt2860v2() {
 					ifconfig $ifname up
 		}
 		#AP模式配置
-		[ "$mode" == "sta" ] || {
+		[ "$mode" == "ap" ] || {
 			[ "$key" = "" -a "$vif" = "private" ] && {
 				logger "no key set serial"
 				key="AAAAAAAAAA"
@@ -433,10 +438,11 @@ enable_rt2860v2() {
 		
 		#如果关闭了WIFI，则关闭RF
 		if [ $disabled == 1 ]; then
-		 iwpriv $ifname set RadioOn=0
+		 iwpriv $ifname set On=0
 		 set_wifi_down $ifname
 		else
 		 iwpriv $ifname set RadioOn=1
+			iwpriv $ifname set On=1
 		fi
 
 		#检查是否需要进行SSID隐藏。
