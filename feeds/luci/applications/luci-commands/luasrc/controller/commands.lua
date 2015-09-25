@@ -14,6 +14,7 @@ You may obtain a copy of the License at
 module("luci.controller.commands", package.seeall)
 
 function index()
+--[[
 	entry({"admin", "system", "commands"}, firstchild(), _("Custom Commands"), 80)
 	entry({"admin", "system", "commands", "dashboard"}, template("commands"), _("Dashboard"), 1)
 	entry({"admin", "system", "commands", "config"}, cbi("commands"), _("Configure"), 2)
@@ -21,6 +22,7 @@ function index()
 	entry({"admin", "system", "commands", "download"}, call("action_download"), nil, 3).leaf = true
 
 	entry({"command"}, call("action_public"), nil, 1).leaf = true
+]]--
 end
 
 --- Decode a given string into arguments following shell quoting rules

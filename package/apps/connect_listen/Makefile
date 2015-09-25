@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=connect_listen
-PKG_VERSION:=2015-08-24
+PKG_VERSION:=2015-09-17
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
@@ -59,11 +59,11 @@ endef
 
 define Package/connect-listen/install
     $(INSTALL_DIR) $(1)/usr/local/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/connect_listen $(1)/usr/local/bin/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tests/deulog $(1)/usr/local/bin/
 	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/connect_listen $(1)/usr/local/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tests/balance_serlist $(1)/etc/balance_serlist
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tests/deulog $(1)/usr/local/bin/
 	$(INSTALL_BIN) ./files/connect_listen.init $(1)/etc/init.d/connect_listen
-	$(INSTALL_BIN) ./files/balance_serlist $(1)/etc/balance_serlist
 endef
 
 $(eval $(call BuildPackage,connect-listen))
