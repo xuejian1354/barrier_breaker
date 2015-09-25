@@ -1,0 +1,6 @@
+#!/bin/sh
+
+logger "system reset now ..."
+
+echo "FACTORY RESET" > /dev/console
+jffs2reset -y && reboot &

@@ -28,6 +28,7 @@ if [ "$1" = up -o "$1" = down ]; then
 	uci set network.wan.ifname=$ifname
 	uci commit network
 	ubus call network reload
+	/etc/init.d/network reload
 fi
 
 LOG "$0 : switch network $ifname"

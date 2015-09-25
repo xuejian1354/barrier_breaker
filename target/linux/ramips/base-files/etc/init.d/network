@@ -34,11 +34,6 @@ reload_service() {
 
 stop_service() {
 	/sbin/wifi down
-	ifname="$(uci get network.wan.ifname)"
-	[ "$ifname" = "eth0.2" ] && {
-		uci set network.wan.ifname=ra0
-		uci commit network
-	}
 }
 
 service_running() {

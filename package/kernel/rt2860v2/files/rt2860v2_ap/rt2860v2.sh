@@ -10,35 +10,35 @@ prepare_config() {
 
 	local num=0 mode disabled
 	
-#准备产生RaX的无线配置
+#准备产生RaX的无线配置: rt2860v2
 	local device=$1
 
-#获取当前的无线频道
+#获取当前的无线频道 "auto"
 	config_get channel $device channel
 
-#获取当前的802.11无线模式
+#获取当前的802.11无线模式: sta
 	config_get hwmode $device mode
 	
-#获取WMM支持
+#获取WMM支持: ""
 	config_get wmm $device wmm
 	
-#获取设备的传输功率
+#获取设备的传输功率: 100
 	config_get txpower $device txpower
 	
-#获取设备的HT（频宽）
+#获取设备的HT（频宽）: '20+40'
 	config_get ht $device ht
 
-#获取国家代码	
+#获取国家代码: CN	
 	config_get country $device country
 	
-#是否有MAC过滤
+#是否有MAC过滤: ""
 	config_get macpolicy $device macpolicy
 
-#MAC地址过滤列表
+#MAC地址过滤列表: ""
 	config_get maclist $device maclist
-#字符格式转义
+#字符格式转义: ""
 	ra_maclist="${maclist// /;};"
-#是否支持GREEN AP功能
+#是否支持GREEN AP功能:greenap: 0, antdiv: "", frag: 2346
 	config_get_bool greenap $device greenap 0
 
 	config_get_bool antdiv "$device" diversity
@@ -142,280 +142,105 @@ done
 	cat > /tmp/RT2860.dat<<EOF
 #The word of "Default" must not be removed
 Default
-CountryRegion=0
+CountryRegion=5
 CountryRegionABand=7
-CountryCode=${country:-CN}
-BssidNum=${num:-1}
-SSID1=${ssid1:-ly7620_SSID1}
-SSID2=${ssid2:-ly7620_SSID2}
-SSID3=${ssid3:-ly7620_SSID3}
-SSID4=${ssid4:-ly7620_SSID4}
-SSID5=
-SSID6=
-SSID7=
-SSID8=
-WirelessMode=${hwmode:-9}
-FixedTxMode=
-TxRate=0
-Channel=${channel:-11}
-BasicRate=15
+CountryCode=
+ChannelGeography=1
+SSID=Dennis2860AP
+NetworkType=Infra
+WirelessMode=9
+Channel=0
 BeaconPeriod=100
-DtimPeriod=1
-TxPower=${txpower:-100}
-DisableOLBC=0
+TxPower=100
 BGProtection=0
-TxAntenna=
-RxAntenna=
-TxPreamble=1
-RTSThreshold=${rts:-2347}
-FragThreshold=${frag:-2346}
+TxPreamble=0
+RTSThreshold=2347
+FragThreshold=2346
 TxBurst=1
-PktAggregate=1
-AutoProvisionEn=0
-FreqDelta=0
-TurboRate=0
-WmmCapable=${wmm:-0}
-APAifsn=3;7;1;1
-APCwmin=4;4;3;2
-APCwmax=6;10;4;3
-APTxop=0;0;94;47
-APACM=0;0;0;0
-BSSAifsn=3;7;2;2
-BSSCwmin=4;4;3;2
-BSSCwmax=10;10;4;3
-BSSTxop=0;0;94;47
-BSSACM=0;0;0;0
+PktAggregate=0
+WmmCapable=1
 AckPolicy=0;0;0;0
-APSDCapable=0
-DLSCapable=0
-NoForwarding=0
-NoForwardingBTNBSSID=0
-HideSSID=${hidessid:-0}
-ShortSlot=1
-AutoChannelSelect=${AutoChannelSelect:-0}
-IEEE8021X=0
-IEEE80211H=0
-CarrierDetect=0
-ITxBfEn=0
-PreAntSwitch=
-PhyRateLimit=0
-DebugFlags=0
-ETxBfEnCond=0
-ITxBfTimeout=0
-ETxBfTimeout=0
-ETxBfNoncompress=0
-ETxBfIncapable=0
-FineAGC=0
-StreamMode=0
-StreamModeMac0=
-StreamModeMac1=
-StreamModeMac2=
-StreamModeMac3=
-CSPeriod=6
-RDRegion=
-StationKeepAlive=0
-DfsLowerLimit=0
-DfsUpperLimit=0
-DfsOutdoor=0
-SymRoundFromCfg=0
-BusyIdleFromCfg=0
-DfsRssiHighFromCfg=0
-DfsRssiLowFromCfg=0
-DFSParamFromConfig=0
-FCCParamCh0=
-FCCParamCh1=
-FCCParamCh2=
-FCCParamCh3=
-CEParamCh0=
-CEParamCh1=
-CEParamCh2=
-CEParamCh3=
-JAPParamCh0=
-JAPParamCh1=
-JAPParamCh2=
-JAPParamCh3=
-JAPW53ParamCh0=
-JAPW53ParamCh1=
-JAPW53ParamCh2=
-JAPW53ParamCh3=
-FixDfsLimit=0
-LongPulseRadarTh=0
-AvgRssiReq=0
-DFS_R66=0
-BlockCh=
-GreenAP=0
-PreAuth=0
 AuthMode=OPEN
 EncrypType=NONE
-WapiPsk1=1234567890
-WapiPsk2=
-WapiPsk3=
-WapiPsk4=
-WapiPsk5=
-WapiPsk6=
-WapiPsk7=
-WapiPsk8=
-WapiPskType=0
-Wapiifname=
-WapiAsCertPath=
-WapiUserCertPath=
-WapiAsIpAddr=
-WapiAsPort=
-RekeyMethod=DISABLE
-RekeyInterval=3600
-PMKCachePeriod=10
-MeshAutoLink=0
-MeshAuthMode=
-MeshEncrypType=
-MeshDefaultkey=0
-MeshWEPKEY=
-MeshWPAKEY=
-MeshId=
-WPAPSK1=1234567890
-WPAPSK2=
-WPAPSK3=
-WPAPSK4=
-WPAPSK5=
-WPAPSK6=
-WPAPSK7=
-WPAPSK8=
+WPAPSK=
 DefaultKeyID=1
 Key1Type=0
-Key1Str1=1234567890
-Key1Str2=
-Key1Str3=
-Key1Str4=
-Key1Str5=
-Key1Str6=
-Key1Str7=
-Key1Str8=
+Key1Str=
 Key2Type=0
-Key2Str1=
-Key2Str2=
-Key2Str3=
-Key2Str4=
-Key2Str5=
-Key2Str6=
-Key2Str7=
-Key2Str8=
+Key2Str=
 Key3Type=0
-Key3Str1=
-Key3Str2=
-Key3Str3=
-Key3Str4=
-Key3Str5=
-Key3Str6=
-Key3Str7=
-Key3Str8=
+Key3Str=
 Key4Type=0
-Key4Str1=
-Key4Str2=
-Key4Str3=
-Key4Str4=
-Key4Str5=
-Key4Str6=
-Key4Str7=
-Key4Str8=
-HSCounter=0
-HT_HTC=1
+Key4Str=
+PSMode=CAM
+AutoRoaming=0
+RoamThreshold=70
+APSDCapable=0
+APSDAC=0;0;0;0
 HT_RDG=1
-HT_LinkAdapt=0
+HT_EXTCHA=0
 HT_OpMode=0
-HT_MpduDensity=5
-HT_EXTCHA=${EXTCHA}
-HT_BW=${HT:-0}
+HT_MpduDensity=4
+HT_BW=1
 HT_AutoBA=1
 HT_BADecline=0
 HT_AMSDU=0
 HT_BAWinSize=64
 HT_GI=1
-HT_STBC=1
 HT_MCS=33
-HT_TxStream=2
-HT_RxStream=2
-HT_PROTECT=1
+HT_MIMOPSMode=3
 HT_DisallowTKIP=1
-HT_BSSCoexistence=${HT_CE:-1}
-GreenAP=${greenap:-0}
-WscConfMode=0
-WscConfStatus=1
-WCNTest=0
-AccessPolicy0=${ra_macfilter:-0}
-AccessControlList0=${ra_maclist:-0}
-AccessPolicy1=0
-AccessControlList1=
-AccessPolicy2=0
-AccessControlList2=
-AccessPolicy3=0
-AccessControlList3=
-AccessPolicy4=0
-AccessControlList4=
-AccessPolicy5=0
-AccessControlList5=
-AccessPolicy6=0
-AccessControlList6=
-AccessPolicy7=0
-AccessControlList7=
-WdsEnable=0
-WdsPhyMode=
-WdsEncrypType=NONE
-WdsList=
-Wds0Key=
-Wds1Key=
-Wds2Key=
-Wds3Key=
-RADIUS_Server=
-RADIUS_Port=1812
-RADIUS_Key1=
-RADIUS_Key2=
-RADIUS_Key3=
-RADIUS_Key4=
-RADIUS_Key5=
-RADIUS_Key6=
-RADIUS_Key7=
-RADIUS_Key8=
-RADIUS_Acct_Server=
-RADIUS_Acct_Port=1813
-RADIUS_Acct_Key=
-own_ip_addr=
-Ethifname=
-EAPifname=
-PreAuthifname=
-session_timeout_interval=0
-idle_timeout_interval=0
-WiFiTest=0
+HT_STBC=0
+EthConvertMode=
+EthCloneMac=
+IEEE80211H=0
 TGnWifiTest=0
-ApCliEnable=0
-ApCliSsid=
-ApCliBssid=
-ApCliAuthMode=
-ApCliEncrypType=
-ApCliWPAPSK=
-ApCliDefaultKeyID=0
-ApCliKey1Type=0
-ApCliKey1Str=
-ApCliKey2Type=0
-ApCliKey2Str=
-ApCliKey3Type=0
-ApCliKey3Str=
-ApCliKey4Type=0
-ApCliKey4Str=
+WirelessEvent=0
+MeshId=MESH
+MeshAutoLink=1
+MeshAuthMode=OPEN
+MeshEncrypType=NONE
+MeshWPAKEY=
+MeshDefaultkey=1
+MeshWEPKEY=
+CarrierDetect=0
+AntDiversity=0
+BeaconLostTime=4
+FtSupport=0
+Wapiifname=ra0
+WapiPsk=
+WapiPskType=
+WapiUserCertPath=
+WapiAsCertPath=
+PSP_XLINK_MODE=0
+WscManufacturer=
+WscModelName=
+WscDeviceName=
+WscModelNumber=
+WscSerialNumber=
 RadioOn=1
-SSID=
-WPAPSK=1234567890
-Key1Str=
-Key2Str=
-Key3Str=
-Key4Str=
+WIDIEnable=1
+P2P_L2SD_SCAN_TOGGLE=3
+Wsc4digitPinCode=0
+P2P_WIDIEnable=0
+PMFMFPC=0
+PMFMFPR=0
+PMFSHA256=0
 EOF
 
 }
 
 reload_rt2860v2() {
-	ifconfig ra0 down
-	rmmod rt2860v2_ap 
+	local mod="rt2860v2_ap"
 
-	insmod rt2860v2_ap
+	[ -f "/lib/modules/$(uname -r)/rt2860v2_sta.ko" ] && {
+		mod=rt2860v2_sta
+	}
+
+	ifconfig ra0 down
+	rmmod ${mod}
+
+	insmod ${mod}
 	ifconfig ra0 up
 }
 
@@ -493,21 +318,20 @@ enable_rt2860v2() {
 		#STA APClient配置
 		[ "$mode" == "sta" ] && {
 					#如果为apcli模式，指定接口名称为apcli0
-					ifname="apcli0"
 					echo "#Encryption" >/tmp/wifi_encryption_${ifname}.dat
 					ifconfig $ifname down
-					iwpriv $ifname set ApCliEnable=0 
-					iwpriv $ifname set ApCliSsid=$ssid
+					iwpriv $ifname set Enable=0
+					iwpriv $ifname set SSID=$ssid
 					config_get bssid $vif bssid 0
 					[ -z "$mode" ] && {
-					iwpriv $ifname set ApCliBssid=$bssid
+					iwpriv $ifname set BSSID=$bssid
 					echo "APCli use bssid connect."
 					}
 			case "$encryption" in
 				none)
 					echo "NONE" >>/tmp/wifi_encryption_${ifname}.dat
-					iwpriv $ifname set ApCliAuthMode=OPEN 
-					iwpriv $ifname set ApCliEncrypType=NONE 
+					iwpriv $ifname set AuthMode=OPEN
+					iwpriv $ifname set EncrypType=NONE 
 					;;
 				WEP|wep|wep-open)
 					echo "WEP" >>/tmp/wifi_encryption_${ifname}.dat
@@ -523,9 +347,9 @@ enable_rt2860v2() {
 					;;
 				WPA*|wpa*|WPA2-PSK|psk*)
 					echo "WPA2" >>/tmp/wifi_encryption_${ifname}.dat
-					iwpriv $ifname set ApCliAuthMode=WPAPSKWPA2PSK
-					iwpriv $ifname set ApCliEncrypType=AES
-					iwpriv $ifname set ApCliWPAPSK=$key
+					iwpriv $ifname set AuthMode=WPA2PSK
+					iwpriv $ifname set EncrypType=AES
+					iwpriv $ifname set WPAPSK=$key
 					echo "WPAPSKWPA2PSK" >>/tmp/wifi_encryption_${ifname}.dat
 					echo "TKIPAES" >>/tmp/wifi_encryption_${ifname}.dat
 					;;
@@ -534,7 +358,7 @@ enable_rt2860v2() {
 					ifconfig $ifname up
 		}
 		#AP模式配置
-		[ "$mode" == "sta" ] || {
+		[ "$mode" == "ap" ] || {
 			[ "$key" = "" -a "$vif" = "private" ] && {
 				logger "no key set serial"
 				key="AAAAAAAAAA"
@@ -614,10 +438,11 @@ enable_rt2860v2() {
 		
 		#如果关闭了WIFI，则关闭RF
 		if [ $disabled == 1 ]; then
-		 iwpriv $ifname set RadioOn=0
+		 iwpriv $ifname set On=0
 		 set_wifi_down $ifname
 		else
 		 iwpriv $ifname set RadioOn=1
+			iwpriv $ifname set On=1
 		fi
 
 		#检查是否需要进行SSID隐藏。
@@ -687,264 +512,90 @@ ifconfig ra0 down
 	cat > /tmp/RT2860.dat<<EOF
 #The word of "Default" must not be removed
 Default
-CountryRegion=0
+CountryRegion=5
 CountryRegionABand=7
-CountryCode=US
-BssidNum=1
-SSID1=LY7620
+CountryCode=
+ChannelGeography=1
+SSID=Dennis2860AP
+NetworkType=Infra
 WirelessMode=9
-FixedTxMode=
-TxRate=0
-Channel=11
-BasicRate=15
+Channel=0
 BeaconPeriod=100
-DtimPeriod=1
 TxPower=100
-DisableOLBC=0
 BGProtection=0
-TxAntenna=
-RxAntenna=
-TxPreamble=1
+TxPreamble=0
 RTSThreshold=2347
 FragThreshold=2346
 TxBurst=1
-PktAggregate=1
-AutoProvisionEn=0
-FreqDelta=0
-TurboRate=0
+PktAggregate=0
 WmmCapable=1
-APAifsn=3;7;1;1
-APCwmin=4;4;3;2
-APCwmax=6;10;4;3
-APTxop=0;0;94;47
-APACM=0;0;0;0
-BSSAifsn=3;7;2;2
-BSSCwmin=4;4;3;2
-BSSCwmax=10;10;4;3
-BSSTxop=0;0;94;47
-BSSACM=0;0;0;0
 AckPolicy=0;0;0;0
-APSDCapable=0
-DLSCapable=0
-NoForwarding=0
-NoForwardingBTNBSSID=0
-HideSSID=1
-ShortSlot=1
-AutoChannelSelect=0
-IEEE8021X=0
-IEEE80211H=0
-CarrierDetect=0
-ITxBfEn=0
-PreAntSwitch=
-PhyRateLimit=0
-DebugFlags=0
-ETxBfEnCond=0
-ITxBfTimeout=0
-ETxBfTimeout=0
-ETxBfNoncompress=0
-ETxBfIncapable=0
-FineAGC=0
-StreamMode=0
-StreamModeMac0=
-StreamModeMac1=
-StreamModeMac2=
-StreamModeMac3=
-CSPeriod=6
-RDRegion=
-StationKeepAlive=0
-DfsLowerLimit=0
-DfsUpperLimit=0
-DfsOutdoor=0
-SymRoundFromCfg=0
-BusyIdleFromCfg=0
-DfsRssiHighFromCfg=0
-DfsRssiLowFromCfg=0
-DFSParamFromConfig=0
-FCCParamCh0=
-FCCParamCh1=
-FCCParamCh2=
-FCCParamCh3=
-CEParamCh0=
-CEParamCh1=
-CEParamCh2=
-CEParamCh3=
-JAPParamCh0=
-JAPParamCh1=
-JAPParamCh2=
-JAPParamCh3=
-JAPW53ParamCh0=
-JAPW53ParamCh1=
-JAPW53ParamCh2=
-JAPW53ParamCh3=
-FixDfsLimit=0
-LongPulseRadarTh=0
-AvgRssiReq=0
-DFS_R66=0
-BlockCh=
-GreenAP=0
-PreAuth=0
 AuthMode=OPEN
 EncrypType=NONE
-WapiPsk1=1234567890
-WapiPsk2=
-WapiPsk3=
-WapiPsk4=
-WapiPsk5=
-WapiPsk6=
-WapiPsk7=
-WapiPsk8=
-WapiPskType=0
-Wapiifname=
-WapiAsCertPath=
-WapiUserCertPath=
-WapiAsIpAddr=
-WapiAsPort=
-RekeyMethod=DISABLE
-RekeyInterval=3600
-PMKCachePeriod=10
-MeshAutoLink=0
-MeshAuthMode=
-MeshEncrypType=
-MeshDefaultkey=0
-MeshWEPKEY=
-MeshWPAKEY=
-MeshId=
-WPAPSK1=1234567890
-WPAPSK2=
-WPAPSK3=
-WPAPSK4=
-WPAPSK5=
-WPAPSK6=
-WPAPSK7=
-WPAPSK8=
+WPAPSK=
 DefaultKeyID=1
 Key1Type=0
-Key1Str1=1234567890
-Key1Str2=
-Key1Str3=
-Key1Str4=
-Key1Str5=
-Key1Str6=
-Key1Str7=
-Key1Str8=
+Key1Str=
 Key2Type=0
-Key2Str1=
-Key2Str2=
-Key2Str3=
-Key2Str4=
-Key2Str5=
-Key2Str6=
-Key2Str7=
-Key2Str8=
+Key2Str=
 Key3Type=0
-Key3Str1=
-Key3Str2=
-Key3Str3=
-Key3Str4=
-Key3Str5=
-Key3Str6=
-Key3Str7=
-Key3Str8=
+Key3Str=
 Key4Type=0
-Key4Str1=
-Key4Str2=
-Key4Str3=
-Key4Str4=
-Key4Str5=
-Key4Str6=
-Key4Str7=
-Key4Str8=
-HSCounter=0
-HT_HTC=1
+Key4Str=
+PSMode=CAM
+AutoRoaming=0
+RoamThreshold=70
+APSDCapable=0
+APSDAC=0;0;0;0
 HT_RDG=1
-HT_LinkAdapt=0
-HT_OpMode=0
-HT_MpduDensity=5
 HT_EXTCHA=0
-HT_BW=0
+HT_OpMode=0
+HT_MpduDensity=4
+HT_BW=1
 HT_AutoBA=1
 HT_BADecline=0
 HT_AMSDU=0
 HT_BAWinSize=64
 HT_GI=1
-HT_STBC=1
 HT_MCS=33
-HT_TxStream=2
-HT_RxStream=2
-HT_PROTECT=1
+HT_MIMOPSMode=3
 HT_DisallowTKIP=1
-HT_BSSCoexistence=1
-GreenAP=0
-WscConfMode=0
-WscConfStatus=1
-WCNTest=0
-AccessPolicy0=0
-AccessControlList0=
-AccessPolicy1=0
-AccessControlList1=
-AccessPolicy2=0
-AccessControlList2=
-AccessPolicy3=0
-AccessControlList3=
-AccessPolicy4=0
-AccessControlList4=
-AccessPolicy5=0
-AccessControlList5=
-AccessPolicy6=0
-AccessControlList6=
-AccessPolicy7=0
-AccessControlList7=
-WdsEnable=0
-WdsPhyMode=
-WdsEncrypType=NONE
-WdsList=
-Wds0Key=
-Wds1Key=
-Wds2Key=
-Wds3Key=
-RADIUS_Server=
-RADIUS_Port=1812
-RADIUS_Key1=
-RADIUS_Key2=
-RADIUS_Key3=
-RADIUS_Key4=
-RADIUS_Key5=
-RADIUS_Key6=
-RADIUS_Key7=
-RADIUS_Key8=
-RADIUS_Acct_Server=
-RADIUS_Acct_Port=1813
-RADIUS_Acct_Key=
-own_ip_addr=
-Ethifname=
-EAPifname=
-PreAuthifname=
-session_timeout_interval=0
-idle_timeout_interval=0
-WiFiTest=0
+HT_STBC=0
+EthConvertMode=
+EthCloneMac=
+IEEE80211H=0
 TGnWifiTest=0
-ApCliEnable=0
-ApCliSsid=
-ApCliBssid=
-ApCliAuthMode=
-ApCliEncrypType=
-ApCliWPAPSK=
-ApCliDefaultKeyID=0
-ApCliKey1Type=0
-ApCliKey1Str=
-ApCliKey2Type=0
-ApCliKey2Str=
-ApCliKey3Type=0
-ApCliKey3Str=
-ApCliKey4Type=0
-ApCliKey4Str=
+WirelessEvent=0
+MeshId=MESH
+MeshAutoLink=1
+MeshAuthMode=OPEN
+MeshEncrypType=NONE
+MeshWPAKEY=
+MeshDefaultkey=1
+MeshWEPKEY=
+CarrierDetect=0
+AntDiversity=0
+BeaconLostTime=4
+FtSupport=0
+Wapiifname=ra0
+WapiPsk=
+WapiPskType=
+WapiUserCertPath=
+WapiAsCertPath=
+PSP_XLINK_MODE=0
+WscManufacturer=
+WscModelName=
+WscDeviceName=
+WscModelNumber=
+WscSerialNumber=
 RadioOn=1
-SSID=
-WPAPSK=12345678
-Key1Str=
-Key2Str=
-Key3Str=
-Key4Str=
+WIDIEnable=1
+P2P_L2SD_SCAN_TOGGLE=3
+Wsc4digitPinCode=0
+P2P_WIDIEnable=0
+PMFMFPC=0
+PMFMFPR=0
+PMFSHA256=0
 EOF
 
 ifconfig ra0 up
@@ -953,7 +604,7 @@ ifconfig ra0 up
 #detect_rt2860v2函数用于检测是否存在驱动
 detect_rt2860v2() {
 	local i=-1
-#判断系统是否存在rt2860v2_ap，不存在则退出
+#判断系统是否存在rt2860v2_sta，不存在则退出
 	cd /sys/module/
 	[ -d rt2860v2_ap ] || return
 #检测系统存在多少个wifi接口
@@ -982,9 +633,9 @@ config wifi-device  ra${i}
 	
 config wifi-iface
 	option device   ra${i}
-	option network	lan
-	option mode     ap
-	option ssid     LYSOC${i#0}_$(cat /sys/class/net/ra${i}/address|awk -F ":" '{print $4""$5""$6 }'| tr a-z A-Z)AP
+	option network	wan
+	option mode     sta
+	option ssid     LYSOC_762058AP
 	option encryption 'psk2'
 	option key '12345678'
 EOF
