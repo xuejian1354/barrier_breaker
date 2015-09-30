@@ -633,9 +633,9 @@ config wifi-device  ra${i}
 	
 config wifi-iface
 	option device   ra${i}
-	option network	wan
-	option mode     sta
-	option ssid     LYSOC_762058AP
+	option network	lan
+	option mode     ap
+	option ssid     LYSOC${i#0}_$(cat /sys/class/net/ra${i}/address|awk -F ":" '{print $4""$5""$6 }'| tr a-z A-Z)AP
 	option encryption 'psk2'
 	option key '12345678'
 EOF
