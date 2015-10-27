@@ -3,7 +3,7 @@ menu "Configuration"
 
 config PACKAGE_connect-listen-gitsite
 	string "connect-listen git site" if DEVEL
-	default "git@loongsky1:smarthome/transconn.git"
+	default "git@www.loongsky1.net:smarthome/transconn.git"
 	help
 	  git repository site
 
