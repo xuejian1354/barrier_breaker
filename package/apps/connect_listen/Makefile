@@ -42,7 +42,7 @@ endef
 define Package/connect-listen
   $(call Package/connector/Default)
   TITLE:=Connector, Projects for Smart Home Applications
-  DEPENDS:= +libsqlite3
+  DEPENDS+= +libcurl
 endef
 
 define Package/connect-listen/description
