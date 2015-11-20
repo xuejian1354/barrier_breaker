@@ -9,7 +9,7 @@ config PACKAGE_connect-listen-gitsite
 
 config PACKAGE_connect-listen-version
 	string "connect-listen git version" if DEVEL
-	default "master"
+	default "smarthome-demo"
 	help
 	  git version
 
