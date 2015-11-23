@@ -9,7 +9,7 @@ PROG=/usr/local/bin/connect_listen
 
 start_service() {
 	procd_open_instance
-        procd_set_param command $PROG /dev/ttyS1 11578
+        procd_set_param command $PROG -s /dev/ttyS1 -u 11578
         procd_close_instance
 }
 
