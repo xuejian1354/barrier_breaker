@@ -1,0 +1,16 @@
+menu "Configuration"
+	depends on PACKAGE_smartlab
+
+config PACKAGE_smartlab-gitsite
+	string "smartlab git site" if DEVEL
+	default "git@www.loongsky1.net:smarthome/transconn.git"
+	help
+	  git repository site
+
+config PACKAGE_smartlab-version
+	string "smartlab git version" if DEVEL
+	default "master"
+	help
+	  git version
+
+endmenu
