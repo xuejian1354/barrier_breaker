@@ -20,7 +20,7 @@ include $(INCLUDE_DIR)/host-build.mk
 HOST_LDFLAGS += $(HOST_STATIC_LINKING)
 unexport PKG_CONFIG
 
-HOST_CONFIGURE_ARGS += --with-internal-glib --enable-iconv=no --with-libiconv=gnu
+HOST_CONFIGURE_ARGS += --with-internal-glib
 
 define Host/Install
 	$(MAKE) -C $(HOST_BUILD_DIR) install \
