@@ -1,0 +1,15 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006-2011 OpenWrt.org
+
+START=89
+STOP=11
+
+USE_PROCD=1
+PROG=/usr/local/bin/uartsocket
+
+start_service() {
+	procd_open_instance
+        procd_set_param command $PROG
+        procd_close_instance
+}
+

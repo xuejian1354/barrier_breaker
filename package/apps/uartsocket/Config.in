@@ -1,0 +1,16 @@
+menu "Configuration"
+	depends on PACKAGE_uartsocket
+
+config PACKAGE_uartsocket-gitsite
+	string "uartsocket git site" if DEVEL
+	default "https://github.com/xuejian1354/uartsocket.git"
+	help
+	  git repository site
+
+config PACKAGE_uartsocket-version
+	string "uartsocket git version" if DEVEL
+	default "master"
+	help
+	  git version
+
+endmenu
