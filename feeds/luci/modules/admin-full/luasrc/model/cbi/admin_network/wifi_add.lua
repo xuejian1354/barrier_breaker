@@ -150,8 +150,7 @@ function newnet.parse(self, section)
 	end
 
 	local value = self:formvalue(section)
-	--net = nw:add_network(value, { proto = "dhcp" })
-	net = nw:get_network(value)
+	net = nw:add_network(value, { proto = "dhcp" })
 
 	if not net then
 		self.error = { [section] = "missing" }

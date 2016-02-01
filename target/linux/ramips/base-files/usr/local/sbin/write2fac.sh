@@ -6,8 +6,22 @@ export size=
 export file=
 export partition="factory"
 
-[ -z "$1" ] && exit 1
-[ $# -lt 3 ] && exit 1
+usage() {
+	cat <<EOF
+Usage:	$0 <command> <offset> <size> [<file>]
+
+command:
+	write | w	write new mac address to factory partition
+	read  | r	read mac address from factory partition
+
+example:
+	write factory partition: $0 <write | w> <offset> <size> <file>	
+	read factory partition:	 $0 <read  | r> <offset> <size>
+EOF
+}
+
+[ -z "$1" ] && usage && exit 1
+[ $# -lt 3 ] && usage && exit 1
 
 case "$1" in
 	write | w)
@@ -22,29 +36,11 @@ case "$1" in
 		export offset=$2
 		export size=$3
 		;;
-	-h | --help)
-		usage
-		return 0
-		;;
 	*) 
 		echo "Invalid options: $1"
 		exit -2
 		;;
 esac
-
-usage() {
-	cat <<EOF
-Usage:	$0 <command> <offset> <size> [<file>]
-
-command:
-	write | w	write new mac address to factory partition
-	read  | r	read mac address from factory partition
-
-example:
-	write factory partition: $0 <write | w> <offset> <size> <file>	
-	read factory partition:	 $0 <read  | r> <offset> <size>
-EOF
-}
 
 find_mtd_index() {
         local part="$(grep "\"$1\"" /proc/mtd | awk -F: '{print $1}')"

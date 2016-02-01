@@ -123,7 +123,7 @@ function index()
 		end
 
 
-		if not nixio.fs.access("/etc/config/dhcp") then
+		if nixio.fs.access("/etc/config/dhcp") then
 			page = node("admin", "network", "dhcp")
 			page.target = cbi("admin_network/dhcp")
 			page.title  = _("DHCP and DNS")
@@ -142,7 +142,7 @@ function index()
 		page.target = cbi("admin_network/routes")
 		page.title  = _("Static Routes")
 		page.order  = 50
---[[
+
 		page = node("admin", "network", "diagnostics")
 		page.target = template("admin_network/diagnostics")
 		page.title  = _("Diagnostics")
@@ -162,7 +162,6 @@ function index()
 
 		page = entry({"admin", "network", "diag_traceroute6"}, call("diag_traceroute6"), nil)
 		page.leaf = true
-]]--
 --	end
 end
 

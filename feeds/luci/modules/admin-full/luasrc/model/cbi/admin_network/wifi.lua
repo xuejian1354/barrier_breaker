@@ -143,9 +143,6 @@ end
 
 
 local hwtype = wdev:get("type")
-if hwtype == "rt2860v2" then
-	hwtype = "mac80211"
-end
 
 -- NanoFoo
 local nsantenna = wdev:get("antenna")
