@@ -53,10 +53,9 @@ endef
 define Package/uartsocket/install
     $(INSTALL_DIR) $(1)/usr/local/bin
 	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tests/balance_serlist $(1)/etc/balance_serlist
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tests/uartsocket.conf $(1)/etc/uartsocket.conf
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/uartsocket $(1)/usr/local/bin/
 	$(INSTALL_BIN) ./files/uartsocket.init $(1)/etc/init.d/uartsocket
+	$(INSTALL_BIN) ./files/uartsocket.conf $(1)/etc/uartsocket.conf
 endef
 
 $(eval $(call BuildPackage,uartsocket))
