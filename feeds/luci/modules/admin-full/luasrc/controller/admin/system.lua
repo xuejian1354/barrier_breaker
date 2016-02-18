@@ -40,6 +40,10 @@ function index()
 		entry({"admin", "system", "leds"}, cbi("admin_system/leds"), _("<abbr title=\"Light Emitting Diode\">LED</abbr> Configuration"), 60)
 	end
 
+	if nixio.fs.access("/usr/local/bin/uartsocket") then
+		entry({"admin", "system", "UartSocket"}, cbi("admin_system/uartsocket"), _("UartSocket"), 65)
+	end
+
 	entry({"admin", "system", "flashops"}, call("action_flashops"), _("Backup / Flash Firmware"), 70)
 	entry({"admin", "system", "flashops", "backupfiles"}, form("admin_system/backupfiles"))
 
