@@ -95,8 +95,6 @@
 			ralink,register-map = [ 00 04 08 0c
 						20 24 28 2c
 						30 34 ];
-
-			status = "disabled";
 		};
 
 		gpio1: gpio@638 {
@@ -117,6 +115,8 @@
 			ralink,register-map = [ 00 04 08 0c
 						10 14 18 1c
 						20 24 ];
+
+			status = "disabled";
 		};
 
 		gpio2: gpio@660 {

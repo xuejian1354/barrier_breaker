@@ -105,7 +105,7 @@
 		poll-interval = <20>;
 		s1 {
 			label = "S1";
-			gpios = <&gpio1 0 1>;
+			gpios = <&gpio0 0 1>;
 			linux,code = <0x101>;
 		};
 	};
