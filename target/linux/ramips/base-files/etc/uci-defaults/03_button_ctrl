@@ -9,10 +9,9 @@ ramips_setup_buttons()
 {
 	local board="$1"
 	case $board in
-	ly7620)
-		ucidef_add_button_wps "BTN_1" "released" 0 2
-		ucidef_add_button_reboot "BTN_1" "released" 4 6
-		ucidef_add_button_reset "BTN_1" "released" 8 10
+	ly7620ht)
+		ucidef_add_button_reboot "BTN_1" "released" 1 3
+		ucidef_add_button_reset "BTN_1" "released" 5 12
 		;;
 	*)
 		;;

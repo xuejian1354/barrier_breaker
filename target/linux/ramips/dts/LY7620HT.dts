@@ -4,7 +4,7 @@
 
 / {
 	compatible = "ralink,mt7620a-eval-board", "ralink,mt7620a-soc";
-	model = "LYSOC LY7620";
+	model = "LYSOC LY7620HT";
 
 	palmbus@10000000 {
 		spi@b00 {

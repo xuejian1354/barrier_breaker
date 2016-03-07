@@ -334,8 +334,8 @@ ramips_board_detect() {
 	*"Lenovo Y1S")
 		name="y1s"
 		;;
-	*"LYSOC LY7620")
-		name="ly7620"
+	*"LYSOC LY7620HT")
+		name="ly7620ht"
 		;;
 	*)
 		name="generic"

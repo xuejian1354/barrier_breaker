@@ -726,13 +726,13 @@ Image/Build/Profile/NA930=$(call BuildFirmware/CustomFlash/$(1),$(1),na930,NA930
 Image/Build/Profile/MZK-750DHP=$(call BuildFirmware/Default8M/$(1),$(1),mzk-750dhp,MZK-750DHP)
 Image/Build/Profile/Y1=$(call BuildFirmware/Default16M/$(1),$(1),Lenovo-y1,Y1)
 Image/Build/Profile/Y1S=$(call BuildFirmware/Default16M/$(1),$(1),Lenovo-y1s,Y1S)
-ly7620_fw_size_64M=66781184
-ly7620_fw_size_16M=16449536
-Image/Build/Profile/LY7620=$(call BuildFirmware/CustomFlash/$(1),$(1),ly7620,LY7620,$(ly7620_fw_size_16M))
+ly7620ht_fw_size_64M=66781184
+ly7620ht_fw_size_16M=16449536
+Image/Build/Profile/LY7620HT=$(call BuildFirmware/CustomFlash/$(1),$(1),ly7620ht,LY7620HT,$(ly7620ht_fw_size_16M))
 
 ifeq ($(SUBTARGET),mt7620a)
 define Image/Build/Profile/Default
-	$(call Image/Build/Profile/LY7620,$(1))
+	$(call Image/Build/Profile/LY7620HT,$(1))
 endef
 #	$(call Image/Build/Profile/MT7620a,$(1))
 #	$(call Image/Build/Profile/MT7620a_MT7610e,$(1))

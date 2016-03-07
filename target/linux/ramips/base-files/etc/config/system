@@ -2,7 +2,7 @@
 config system
 	option conloglevel '8'
 	option cronloglevel '8'
-	option hostname 'ly7620'
+	option hostname 'ly7620ht'
 	option zonename 'Asia/Shanghai'
 	option timezone 'CST-8'
 

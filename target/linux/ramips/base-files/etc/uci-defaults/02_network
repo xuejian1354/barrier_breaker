@@ -132,7 +132,7 @@ ramips_setup_interfaces()
 		ucidef_set_interfaces_lan_wan "eth0.1" "eth0.2"
 		;;
 
-	ly7620)
+	ly7620ht)
 		ucidef_set_interfaces_lan_wan "eth0.1" "eth0.2"
                 ucidef_add_switch "switch0" "1" "1"
                 ucidef_add_switch_vlan "switch0" "1" "0 1 2 3 6t"
@@ -277,6 +277,14 @@ ramips_setup_macs()
 		wan_mac=$(mtd_get_mac_ascii nvram wanmac)
 		;;
 
+	ly7620ht)
+		r1=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')
+		r2=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')
+		r3=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')
+		lan_mac=00:0c:43:$r1:$r2:$r3
+		wan_mac=$(macaddr_add "$lan_mac" 1)
+		;;
+
 	wcr-150gn)
                 wan_mac=$(mtd_get_mac_binary factory 40)
 		;;
@@ -285,11 +293,6 @@ ramips_setup_macs()
 		lan_mac=$(cat /sys/class/net/eth0/address)
 		lan_mac=$(macaddr_setbit_la "$lan_mac")
 		wan_mac=$(mtd_get_mac_binary factory 32772)
-		;;
-
-	ly7620)
-		wan_mac=$(mtd_get_mac_binary factory 0)
-		lan_mac=$(macaddr_add "$wan_mac" 1)
 		;;
 
 	all0239-3g | \

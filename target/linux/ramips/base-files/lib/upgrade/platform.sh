@@ -101,7 +101,7 @@ platform_check_image() {
 	zbt-wa05 |\
 	y1 |\
 	y1s |\
-	ly7620)
+	ly7620ht)
 		[ "$magic" != "27051956" ] && {
 			echo "Invalid image type."
 			return 1
