@@ -179,8 +179,8 @@ start() {
 
 		[ -n "${friendly_name}" ] && {
 			macid="$(cat /sys/class/net/eth0.2/address \
-					| sed 's/[:]//g')"
-			echo "friendly_name=${friendly_name}-$macid" >>$tmpconf
+					| awk -F ":" '{print $4""$5""$6 }')"
+			echo "friendly_name=$(echo "${friendly_name}-$macid" | tr a-z A-Z)" >>$tmpconf
 		}
 
 		[ -n "${manufacturer_name}" ] && \

@@ -358,7 +358,7 @@ enable_rt2860v2() {
 					ifconfig $ifname up
 		}
 		#AP模式配置
-		[ "$mode" == "ap" ] || {
+		[ "$mode" == "ap" ] && {
 			[ "$key" = "" -a "$vif" = "private" ] && {
 				logger "no key set serial"
 				key="AAAAAAAAAA"
@@ -619,7 +619,7 @@ detect_rt2860v2() {
 	}
 	
 	first_enable
-	
+
 		cat <<EOF
 config wifi-device  ra${i}
 	option type     rt2860v2
@@ -627,16 +627,15 @@ config wifi-device  ra${i}
 	option channel  auto
 	option txpower 100
 	option ht 20+40
-    option country CN
-# REMOVE THIS LINE TO ENABLE WIFI:
+	option country CN
 	option disabled 0	
 	
 config wifi-iface
 	option device   ra${i}
 	option network	lan
 	option mode     ap
-	option ssid     LYSOC${i#0}_$(cat /sys/class/net/ra${i}/address|awk -F ":" '{print $4""$5""$6 }'| tr a-z A-Z)AP
-	option encryption 'psk2'
+	option ssid     LY7620HT_$(dd if=/dev/urandom bs=1 count=3 | hexdump -e '3/1 "%02X"')AP
+	option encryption 'psk+psk2'
 	option key '12345678'
 EOF
 
