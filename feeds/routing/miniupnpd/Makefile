@@ -52,7 +52,7 @@ MAKE_FLAGS += \
 	TEST=0 \
 	LIBS="" \
 	CC="$(TARGET_CC) -DIPTABLES_143 -lnfnetlink -lip4tc $(if $(CONFIG_IPV6),-lip6tc)" \
-	CONFIG_OPTIONS="$(if $(CONFIG_IPV6),--ipv6) --leasefile" \
+	CONFIG_OPTIONS="$(if $(CONFIG_IPV6),--ipv6) --leasefile --vendorcfg" \
 	-f Makefile.linux \
 	miniupnpd
 
