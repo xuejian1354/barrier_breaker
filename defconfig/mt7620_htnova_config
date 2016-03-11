@@ -2025,7 +2025,13 @@ CONFIG_PACKAGE_wireless-tools=y
 #
 # Service/Application
 #
-# CONFIG_PACKAGE_uartsocket is not set
+CONFIG_PACKAGE_uartsocket=y
+
+#
+# Configuration
+#
+CONFIG_PACKAGE_uartsocket-gitsite="https://github.com/xuejian1354/uartsocket.git"
+CONFIG_PACKAGE_uartsocket-version="master"
 
 #
 # Smart Home/Application
