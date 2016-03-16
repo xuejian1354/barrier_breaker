@@ -44,8 +44,8 @@ SmartLab app is a program that manage smart room feature function.
 endef
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) smartlab cprefix=$(TARGET_CROSS)
-	$(MAKE) -C $(PKG_BUILD_DIR)/tests deulog prefix=$(TARGET_CROSS)
+	$(MAKE) V=99 -C $(PKG_BUILD_DIR) smartlab cprefix=$(TARGET_CROSS)
+	$(MAKE) V=99 -C $(PKG_BUILD_DIR)/tests deulog prefix=$(TARGET_CROSS)
 endef
 
 define Build/InstallDev

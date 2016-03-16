@@ -1,0 +1,13 @@
+diff --git a/include/include.mk b/include/include.mk
+index 0fb8111..fbd2a7e 100644
+--- a/include/include.mk
++++ b/include/include.mk
+@@ -4,7 +4,7 @@ ifeq ($(TOPDIR),)
+ $(error TOPDIR value no set)
+ endif
+ 
+-inc_dirs :=
++inc_dirs :=$(STAGING_DIR)/usr/include/libxml2/libxml
+ 
+ inc_files := $(strip $(foreach n, $(SUB_MODULES), \
+ 			  $(patsubst %, $(n)/%, \
