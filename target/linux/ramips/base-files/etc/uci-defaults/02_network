@@ -132,6 +132,7 @@ ramips_setup_interfaces()
 		ucidef_set_interfaces_lan_wan "eth0.1" "eth0.2"
 		;;
 
+	ly7620 | \
 	ly7620ht)
 		ucidef_set_interfaces_lan_wan "eth0.1" "eth0.2"
                 ucidef_add_switch "switch0" "1" "1"
@@ -277,6 +278,7 @@ ramips_setup_macs()
 		wan_mac=$(mtd_get_mac_ascii nvram wanmac)
 		;;
 
+	ly7620 | \
 	ly7620ht)
 		r1=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')
 		r2=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')

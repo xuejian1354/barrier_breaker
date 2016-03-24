@@ -290,3 +290,26 @@ set system.@button[-1].min='$min'
 set system.@button[-1].max='$max'
 EOF
 }
+
+ucidef_set_system_conf() {
+	local host=$1
+
+	uci batch <<EOF
+add system system
+set system.@system[-1].conloglevel='8'
+set system.@system[-1].cronloglevel='8'
+set system.@system[-1].hostname='$host'
+set system.@system[-1].zonename='Asia/Shanghai'
+set system.@system[-1].timezone='CST-8'
+EOF
+}
+
+ucidef_set_upnpd_name() {
+	local host=$1
+
+	uci batch <<EOF
+set upnpd.config='upnpd'
+set upnpd.@upnpd[-1].friendly_name='$host'
+EOF
+}
+

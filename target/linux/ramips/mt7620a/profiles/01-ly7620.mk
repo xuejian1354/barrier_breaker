@@ -5,14 +5,14 @@
 # See /LICENSE for more information.
 #
 
-define Profile/Default
-	NAME:=Default Profile
+define Profile/ly7620
+	NAME:=LY7620
 	PACKAGES:=\
 		kmod-usb-core kmod-usb2 kmod-usb-ohci \
 		kmod-ledtrig-usbdev
 endef
 
 define Profile/Default/Description
-	Default package set compatible with most boards.
+	Package set compatible with ly7620 board.
 endef
-$(eval $(call Profile,Default))
+$(eval $(call Profile,ly7620))

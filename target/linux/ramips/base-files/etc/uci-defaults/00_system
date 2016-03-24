@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. /lib/functions.sh
+. /lib/ramips.sh
+. /lib/functions/uci-defaults.sh
+. /lib/functions/system.sh
+
+[ -e /etc/config/system ] || touch /etc/config/system
+
+board=$(ramips_board_name)
+
+ucidef_set_system_conf $board
+uci commit system
+
+[ -e /etc/config/upnpd ] && ucidef_set_upnpd_name $board && uci commit upnpd
+
+exit 0
