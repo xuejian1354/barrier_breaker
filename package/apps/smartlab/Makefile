@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=smartlab
-PKG_VERSION:=2015-12-09
+PKG_VERSION:=2016-03-25
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
@@ -36,7 +36,7 @@ define Package/smartlab
   URL:=$(TOPDIR)/src
   MAINTAINER:=Sam Chen <xuejian1354@163.com>
   TITLE:=SmartLab, Projects for Smart Room Applications
-  DEPENDS:=+libpthread +librt +libcurl +libxml2 +libsqlite3
+  DEPENDS:=+libpthread +librt +libcurl +libxml2 +libopenssl +libsqlite3
 endef
 
 define Package/smartlab/description

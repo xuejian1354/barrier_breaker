@@ -11,7 +11,7 @@ ramips_setup_buttons()
 	case $board in
 	ly7620 | \
 	ly7620ht)
-		ucidef_add_button_reboot "BTN_1" "released" 0 2
+		ucidef_add_button_reboot "BTN_1" "released" 1 4
 		ucidef_add_button_reset "BTN_1" "released" 5 12
 		;;
 	*)

@@ -280,11 +280,15 @@ ramips_setup_macs()
 
 	ly7620 | \
 	ly7620ht)
-		r1=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')
-		r2=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')
-		r3=$(dd if=/dev/urandom bs=1 count=1 |hexdump -e '1/1 "%02x"')
-		lan_mac=00:0c:43:$r1:$r2:$r3
-		wan_mac=$(macaddr_add "$lan_mac" 1)
+		local tmpmac
+		[ -f /tmp/macid ] && tmpmac=$(cat /tmp/macid)
+		[ -z "$tmpmac" ] && \
+			r1=$(dd if=/dev/urandom bs=1 count=1 | hexdump -e '1/1 "%02x"') && \
+			r2=$(dd if=/dev/urandom bs=1 count=1 | hexdump -e '1/1 "%02x"') && \
+			r3=$(dd if=/dev/urandom bs=1 count=1 | hexdump -e '1/1 "%02x"') && \
+			tmpmac=00:0c:43:$r1:$r2:$r3 && echo "$tmpmac" > /tmp/macid
+		wan_mac=${tmpmac}
+		lan_mac=$(macaddr_add "$wan_mac" -1)
 		;;
 
 	wcr-150gn)

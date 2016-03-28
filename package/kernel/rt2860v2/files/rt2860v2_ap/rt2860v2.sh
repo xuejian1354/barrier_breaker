@@ -620,6 +620,24 @@ detect_rt2860v2() {
 	
 	first_enable
 
+	local name
+
+	[ -f /tmp/sysinfo/board_name ] && name=$(cat /tmp/sysinfo/board_name | awk '{print toupper($1)}')
+	[ -z "$name" ] && name="RT2860"
+
+	local wan_mac
+ 	[ -f /tmp/macid ] && wan_mac=$(cat /tmp/macid)
+	[ -z "$wan_mac" ] && \
+		r1=$(dd if=/dev/urandom bs=1 count=1 | hexdump -e '1/1 "%02x"') && \
+		r2=$(dd if=/dev/urandom bs=1 count=1 | hexdump -e '1/1 "%02x"') && \
+		r3=$(dd if=/dev/urandom bs=1 count=1 | hexdump -e '1/1 "%02x"') && \
+		wan_mac=00:0c:43:$r1:$r2:$r3 && echo "$wan_mac" > /tmp/macid
+
+	macid="$(cat /tmp/macid \
+			| awk -F ":" '{print $4""$5""$6 }')"
+
+	ssid=$(echo "${name}_${macid}AP" | tr a-z A-Z)
+
 		cat <<EOF
 config wifi-device  ra${i}
 	option type     rt2860v2
@@ -634,7 +652,7 @@ config wifi-iface
 	option device   ra${i}
 	option network	lan
 	option mode     ap
-	option ssid     LY7620HT_$(dd if=/dev/urandom bs=1 count=3 | hexdump -e '3/1 "%02X"')AP
+	option ssid     ${ssid}
 	option encryption 'psk+psk2'
 	option key '12345678'
 EOF
