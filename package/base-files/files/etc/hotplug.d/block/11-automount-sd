@@ -1,0 +1,40 @@
+#!/bin/sh
+## Automatic to mount/umout block device
+
+if [ "${ACTION}" == "add" ]; then
+        ## Do mount command      
+        ## wait for 3 seconds    
+        sleep 5                  
+        devs=`find /dev/ -maxdepth 1 -name 'mmcblk[0-9][a-z][0-9]'`
+        dirs=`find /mnt/ -maxdepth 1 -name 'mmcblk[0-9][a-z][0-9]'`
+        for dev in ${devs}; do                            
+                flags="no"                                
+                for d in ${dirs}; do                      
+                        if [ "${dev}" == "${d}" ]; then
+                                flags="yes"            
+                        fi                             
+                done                                   
+                if [ "${flags}" == "no" ]; then
+                        mkdir -p /mnt/${dev#/dev/} >/dev/null 2>&1
+                        mount ${dev} /mnt/${dev#/dev/} >/dev/null 2>&1
+                fi                                                    
+        done                                                          
+fi                                                                    
+                  
+if [ "${ACTION}" == "remove" ]; then
+        ## Do umount command        
+        devs=`find /dev/ -maxdepth 1 -name 'mmcblk[0-9][a-z][0-9]'`
+        dirs=`find /mnt/ -maxdepth 1 -name 'mmcblk[0-9][a-z][0-9]'`
+        for d in ${dirs}; do                              
+                flags="no"                                
+                for dev in ${devs}; do                    
+                        if [ "${d}" == "${dev}" ]; then
+                                flags="yes"            
+                        fi                             
+                done                                   
+                if [ "${flags}" == "no" ]; then
+                        umount ${d} >/dev/null 2>&1
+                        rm -rf ${d} >/dev/null 2>&1 
+                fi
+	done
+fi
