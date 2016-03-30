@@ -1,0 +1,6 @@
+#!/bin/sh
+uci batch <<-EOF
+	set luci.themes.Loong_Generic=/luci-static/loong-generic
+	commit luci
+EOF
+exit 0
