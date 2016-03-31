@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=connect_listen
-PKG_VERSION:=2015-11-20
+PKG_VERSION:=2016-03-31
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
@@ -42,7 +42,7 @@ endef
 define Package/connect-listen
   $(call Package/connector/Default)
   TITLE:=Connector, Projects for Smart Home Applications
-  DEPENDS+=+libcurl +libxml2 +libsqlite3
+  DEPENDS+=+libcurl +libxml2 +libsqlite3 +libopenssl
 endef
 
 define Package/connect-listen/description
