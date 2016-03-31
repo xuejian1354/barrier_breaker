@@ -9,7 +9,7 @@ config PACKAGE_smartlab-gitsite
 
 config PACKAGE_smartlab-version
 	string "smartlab git version" if DEVEL
-	default "master"
+	default "smartlab-demo"
 	help
 	  git version
 
