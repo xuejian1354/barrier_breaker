@@ -2041,6 +2041,11 @@ CONFIG_PACKAGE_uartsocket-version="master"
 # CONFIG_PACKAGE_smartlab is not set
 
 #
+# System
+#
+CONFIG_PACKAGE_bbevents=y
+
+#
 # Boot Loaders
 #
 
@@ -3205,6 +3210,7 @@ CONFIG_PACKAGE_luci-app-firewall=y
 CONFIG_PACKAGE_luci-theme-bootstrap=y
 # CONFIG_PACKAGE_luci-theme-freifunk-bno is not set
 # CONFIG_PACKAGE_luci-theme-freifunk-generic is not set
+# CONFIG_PACKAGE_luci-theme-loong-generic is not set
 # CONFIG_PACKAGE_luci-theme-openwrt is not set
 
 #
