@@ -47,10 +47,8 @@
 	pinctrl {
 		state_default: pinctrl0 {
 			default {
-				ralink,group = "rgmii1";
+				ralink,group = "uartf", "wled";
 				ralink,function = "gpio";
-				
-				status = "disabled";
 			};
 		};
 	};
@@ -89,6 +87,18 @@
 			};
 		};
 	};
+
+	gpio-leds {
+                compatible = "gpio-leds";
+                wifi {
+                        label = "mt7620a:red:wifi";
+                        gpios = <&gpio0 9 1>;
+                };
+                wan {
+                        label = "mt7620a:red:wan";
+                        gpios = <&gpio3 0 1>;
+                };
+        };
 
 	sdhci@10130000 {
 		status = "okay";

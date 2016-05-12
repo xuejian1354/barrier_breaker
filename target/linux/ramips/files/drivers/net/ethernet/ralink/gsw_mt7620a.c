@@ -111,7 +111,7 @@
 #define PHY_PRE_EN		BIT(30)
 #define PMY_MDC_CONF(_x)	((_x & 0x3f) << 24)
 
-#define __HOTPLUG_TOGGLE_NETWORK__
+//#define __HOTPLUG_TOGGLE_NETWORK__
 #ifdef __HOTPLUG_TOGGLE_NETWORK__
 #include <linux/kmod.h>
 #endif

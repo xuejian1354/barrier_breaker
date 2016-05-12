@@ -19,11 +19,11 @@ ramips_setup_buttons()
 	esac
 }
 
-#[ -e /etc/config/system ] || touch /etc/config/system
+[ -e /etc/config/system ] || touch /etc/config/system
 
-#board=$(ramips_board_name)
+board=$(ramips_board_name)
 
-#ramips_setup_buttons $board
-#uci commit system
+ramips_setup_buttons $board
+uci commit system
 
 exit 0
