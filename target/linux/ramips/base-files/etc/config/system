@@ -4,4 +4,8 @@ config timeserver 'ntp'
 	list server 'ntp.sjtu.edu.cn'
 	list server 'ntp-sop.inria.frserver'
 	list server 'clock.via.net'
-
+config led led_sys
+	option sysfs 'mt7620a:red:sys'
+	option trigger 'timer'
+	option delayon '500'
+	option delayoff '1000'

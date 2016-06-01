@@ -114,7 +114,7 @@ case $board in
 		set_usb_led "hw550-3g:green:usb"
 		;;
 	ly7620ht)
-		ucidef_set_led_netdev "wifi" "wifi" "mt7620a:red:wifi" "ra0"
+		ucidef_set_led_default "sys" "sys" "mt7620a:red:sys" "1"
 		ucidef_set_led_netdev "wan" "wan" "mt7620a:red:wan" "eth0.2"
 		;;
 	mlw221|\
