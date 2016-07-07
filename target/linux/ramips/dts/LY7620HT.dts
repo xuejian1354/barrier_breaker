@@ -90,8 +90,8 @@
 
 	gpio-leds {
                 compatible = "gpio-leds";
-                wifi {
-                        label = "mt7620a:red:wifi";
+                sys {
+                        label = "mt7620a:red:sys";
                         gpios = <&gpio0 9 1>;
                 };
                 wan {
